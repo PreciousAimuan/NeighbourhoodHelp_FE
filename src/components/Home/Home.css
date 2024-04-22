@@ -55,6 +55,7 @@ body {
 .log-in {
     color: #000080;
     margin-right: 30px;
+    cursor: pointer;
 }
 .sign-in {
     display: inline-flex;

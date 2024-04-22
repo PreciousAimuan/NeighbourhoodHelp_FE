@@ -1,7 +1,8 @@
 import WhiteArrow from '../../assets/images/white-right-arrow.png';
 import { Link } from 'react-scroll';
- 
+import { Link as Linker } from 'react-router-dom';
 const Header = () => {
+ 
   return (
     <header className="header">
         <div className="header-logo">
@@ -26,13 +27,13 @@ const Header = () => {
               </Link>
         </div>
         <div className="header-signup">
-          <a href="/signup" className="log-in">
+          <Linker to="/login" className="log-in">
             Log In
-          </a>
-          <a href="/login" className="sign-in">
+          </Linker>
+          <Linker to="/signup" className="sign-in">
             <p>Sign Up</p>
             <img src={WhiteArrow} alt=''/>
-          </a>
+          </Linker>
         </div>
     </header>
   )
