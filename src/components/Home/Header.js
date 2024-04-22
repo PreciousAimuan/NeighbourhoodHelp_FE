@@ -26,10 +26,10 @@ const Header = () => {
               </Link>
         </div>
         <div className="header-signup">
-          <a href="/" className="log-in">
+          <a href="/signup" className="log-in">
             Log In
           </a>
-          <a href="/" className="sign-in">
+          <a href="/login" className="sign-in">
             <p>Sign Up</p>
             <img src={WhiteArrow} alt=''/>
           </a>
