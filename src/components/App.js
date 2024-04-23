@@ -12,6 +12,7 @@ import Receive2 from './Package/Receive2';
 import Receive3 from './Package/Receive3';
 import Receive4 from './Package/Receive4';
 import Receive5 from './Package/Receive5';
+import Dashboard_sidebar from './Dashboard/Dashboard_sidebar';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/receive/3' element={<Receive3 />}/>
           <Route path='/receive/4' element={<Receive4 />}/>
           <Route path='/receive/5' element={<Receive5 />}/>
+          <Route path='/dashboard' element={<Dashboard_sidebar/>}/>
         </Routes>
       </Router>
    </>
