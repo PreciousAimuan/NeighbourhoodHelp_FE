@@ -4,7 +4,7 @@ import formImage from '../../assets/images/bg.svg';
 import googleIcon from '../../assets/images/Google.svg';
 import line from '../../assets/images/line.svg';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios'
 const UserRoleSelect = ({ value, onChange }) => (
   <div>
     <label htmlFor="roleSelect">Select Role:</label>
@@ -21,7 +21,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phoneNumber, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -30,10 +30,10 @@ const SignUp = () => {
     setRole(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!role || !firstName || !lastName || !email || !phone || !password || !confirmPassword) {
+    if (!role || !firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
@@ -44,7 +44,7 @@ const SignUp = () => {
     }
 
     // Password validation: at least 6 characters, at least one letter, one number, and one special character
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       setError('Password must be at least 6 characters long and contain letters, numbers, and special characters');
       return;
@@ -52,6 +52,47 @@ const SignUp = () => {
 
     setError('');
     // Add your form submission logic here
+    const userData = {
+      role,
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+      confirmPassword
+    };
+
+    try {
+      const response = await axios.post(
+        "https://localhost:7198/api/User/sign-up",
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data); // Handle successful signup
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error(
+          "Request was made but server responded with status:",
+          error.response.status
+        );
+        console.error("Response data:", error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error(
+          "Request was made but no response was received:",
+          error.request
+        );
+      } else {
+        // Something happened in setting up the request that triggered an error
+        console.error("An error occurred:", error.message);
+      }
+    }
   };
 
   return (
@@ -88,7 +129,7 @@ const SignUp = () => {
           </div>
           <div className="inputFields">
             <label htmlFor="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone"  style={{paddingLeft:"15px"}} value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input type="text" id="phone" name="phone"  style={{paddingLeft:"15px"}} value={phoneNumber} onChange={(e) => setPhone(e.target.value)} />
           </div>
           <div className="inputFields">
             <label htmlFor="password">Password:</label>
