@@ -14,6 +14,8 @@ import Receive4 from './Package/Receive4';
 import Receive5 from './Package/Receive5';
 import UserDashboard from '../pages/UserDashboard/UserDashboard';
 
+import UserProfileUpdate from './UpdateProfile/UserProfileUpdate';
+import AgentSignUp from './Agent-SignUp/AgentSignUp';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="/receive/3" element={<Receive3 />} />
           <Route path="/receive/4" element={<Receive4 />} />
           <Route path="/receive/5" element={<Receive5 />} />
+          <Route path='/userProfileUpdate' element={<UserProfileUpdate/>}/>
+          <Route path='/agentSignup' element={<AgentSignUp/>}/>
         </Routes>
       </Router>
     </>

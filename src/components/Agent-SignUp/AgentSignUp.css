@@ -1,0 +1,219 @@
+.roboto-thin {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  a{
+    text-decoration: none;
+  }
+  
+  
+  .roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+   .roboto-regular{
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .roboto-black {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .roboto-thin-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .roboto-light-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .roboto-regular-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .roboto-medium-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .roboto-bold-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .roboto-black-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  .dm-sans-uniquifier {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Specify the desired font weight */
+    font-style: normal;
+  }
+  
+  
+  
+
+.form1-container {
+    height: 320px;
+    width: 60%;
+    margin-left: 25% ;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .form1-row-1{
+    height: 70px;
+    width: 100%;
+    /* background-color: aqua;   */
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    
+  }
+  .form1-col-1-1{
+    height: 70px;
+    width: 49%;
+     /* background-color: brown;   */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .form1-col-1-2{
+    height: 70px;
+    width: 49%;
+     /* background-color: blue;  */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .fn1{
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #000080;
+  }
+  .lfn1{
+    font-size: 13px;
+  }
+  .ln1{
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #000080;
+  }
+  .lln1{
+    font-size: 13px;
+  }
+
+  .form1-row-2{
+    height: 70px;
+    width: 100%;
+      /* background-color: rebeccapurple;   */
+    display: flex;
+    justify-content: space-between;
+     margin-top: 0px; 
+  
+    
+  }
+  
+  .form1-col-2-1{
+    height: 70px;
+    width: 49%;
+     /* background-color: brown;  */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .eln1{
+    font-size: 13px;
+  }
+  .ein1{
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #0202ae;
+  }
+  .form1-col-2-2{
+    height: 70px;
+    width: 49%;
+     /* background-color: rgb(132, 165, 42);  */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .pln1{
+    font-size: 13px;
+  }
+  .pin1{
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #000080;
+  }
+  .title{
+    padding-left: 28%;
+    margin-bottom: -12px;
+    font-family: "Roboto", sans-serif;
+    font-size: 23px;
+    font-weight: 600;
+   
+  }
+  .AgentForm{
+    margin-top: 140px;
+  }
+  .btn{
+  
+    width: 30%;
+    padding: 13px;
+    border-radius: 15px;
+    border: 0;
+    background-color: #000080;
+    color: white;
+    transition: 0.4s ease;
+    font-family: "DM Sans", sans-serif;
+    cursor: pointer;
+
+    
+  }
+  .btn span:first-child {
+    margin-right: 7px;
+  }
+  .btn-Container{
+    justify-content: center;
+    display: flex;
+    margin-top: -13px;
+    
+  }
+  .btn:hover{
+    background-color: cornflowerblue;
+  }
+
+  
