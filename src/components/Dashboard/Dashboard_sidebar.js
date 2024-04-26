@@ -5,6 +5,7 @@ import Logout_logo from "../../assets/images/logout.png";
 import folder_logo from "../../assets/images/folder.png";
 import Discover_logo from "../../assets/images/discover.png";
 import Profile_logo from "../../assets/images/profile.png";
+import {Link} from 'react-router-dom';
 import profile_img from "../../assets/images/Ellipse.png";
 import notification_logo from "../../assets/images/notification.png";
 
@@ -34,7 +35,7 @@ const Dashboard_sidebar = () => {
               <div className="dash">
                 <img src={folder_logo} alt="History logo" />
                 <h4>
-                  <a href="/">History</a>
+                  <Link to="/dashboard/history">History</Link>
                 </h4>
               </div>
             </div>

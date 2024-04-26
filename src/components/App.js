@@ -16,6 +16,7 @@ import UserDashboard from '../pages/UserDashboard/UserDashboard';
 
 import UserProfileUpdate from './UpdateProfile/UserProfileUpdate';
 import AgentSignUp from './Agent-SignUp/AgentSignUp';
+import History from '../pages/History/History';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/receive/5" element={<Receive5 />} />
           <Route path='/userProfileUpdate' element={<UserProfileUpdate/>}/>
           <Route path='/agentSignup' element={<AgentSignUp/>}/>
+          <Route path="/dashboard/history" element={<History />} />
         </Routes>
       </Router>
     </>
