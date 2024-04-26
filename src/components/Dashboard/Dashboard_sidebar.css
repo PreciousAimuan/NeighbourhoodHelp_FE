@@ -5,23 +5,23 @@
     src: url('../../../public/fonts/Harlow\ Solid\ Italic\ Italic.ttf') format('truetype');
   }
 
-*{
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+  } */
   
-  body{
+  /* body{
     display: flex;
     flex-direction: column;
     width: 100;
-  }
+  } */
 
   .containerss{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
     /* width: 43.5rem;
     box-sizing: border-box;*/
   }
@@ -33,7 +33,7 @@
     display: flex;
     flex-direction: column;
     padding: 1.5rem 1.5rem 37.3rem 1.5rem;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 .dashboard-left-nav{
@@ -138,16 +138,7 @@
     
 }
 
-.profile-pic-notification-logo {
-    margin-bottom: 940px;
-    margin-right: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.notification-logo{
-    margin-right: 25px;
-}
+
 
 .logo-footer{
     font-family: Harlow-Solid-Italic;

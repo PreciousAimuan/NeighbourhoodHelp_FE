@@ -1,0 +1,35 @@
+.amount-container {
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.amount-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.amount-container button {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.accept {
+  background-color: darkgreen;
+}
+.decline {
+  background-color: darkred;
+}
+.counter {
+  background-color: darkgoldenrod;
+}
+
+.amount-container button:hover {
+  background-color: #ccc;
+}

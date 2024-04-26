@@ -1,0 +1,11 @@
+.navbarr{
+    margin-top: 1rem;
+}
+.profile-pic-notification-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notification-logo{
+    margin-right: 25px;
+}

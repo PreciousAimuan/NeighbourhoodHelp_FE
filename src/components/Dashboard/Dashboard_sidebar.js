@@ -14,6 +14,7 @@ const Dashboard_sidebar = () => {
     <div className="containerss">
       <div className="dashboard-sidebar">
         <div className="dsh">
+        <div className="dsh">
           <h3 className="logo-footer">Neighbourhood Help</h3>
         </div>
         <div className="dashboard-left-nav">
@@ -61,14 +62,7 @@ const Dashboard_sidebar = () => {
           </div>
         </div>
       </div>
-      {/* <div className="profile-pic-notification-logo">
-        <a href="/">
-        <img src={notification_logo} alt="notification-logo" className="notification-logo"/>
-        </a>
-        <a href="/">
-        <img src={profile_img} alt="profile-pic" />
-        </a>
-      </div> */}
+      </div>
     </div>
   );
 };
