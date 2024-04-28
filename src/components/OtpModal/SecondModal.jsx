@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const SecondModal = ({ isOpen, email }) => {
+const SecondModal = ({ isOpen }) => {
   const [otp, setOtp] = useState("");
-
+  const [email, setEmail] = useState("");
   const handleOtpChange = (e) => {
     setOtp(e.target.value);
   };
-
+  useEffect(() => {
+    // Retrieve email from local storage
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
   const handleContinue = async () => {
     try {
-      const response = await axios.patch("https://localhost:7198/api/User/verify-otp", {
-        email: email,
-        otp: otp,
-      });
+      const response = await axios.patch(
+        "https://localhost:7198/api/User/verify-otp",
+        {
+          email: email,
+          otp: otp,
+        }
+      );
       if (response.status === 200) {
         // Display success alert and redirect to login page
         alert("OTP verified successfully");
@@ -40,14 +49,21 @@ const SecondModal = ({ isOpen, email }) => {
           <form>
             <input
               className="otp-input"
-              style={{ border: "1.5px solid #000080", padding: "12px", borderRadius: "8px" }}
+              style={{
+                border: "1.5px solid #000080",
+                padding: "12px",
+                borderRadius: "8px",
+              }}
               type="text"
               placeholder="e.g 123456"
               value={otp}
               onChange={handleOtpChange}
             />
           </form>
-          <button onClick={handleContinue} className="custom-modal-action-button">
+          <button
+            onClick={handleContinue}
+            className="custom-modal-action-button"
+          >
             Continue
           </button>
         </div>

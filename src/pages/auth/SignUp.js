@@ -5,6 +5,7 @@ import googleIcon from '../../assets/images/Google.svg';
 import line from '../../assets/images/line.svg';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import CustomModal from '../../components/EmailVerificationModal/CustomModal'
 const UserRoleSelect = ({ value, onChange }) => (
   <div>
     <label htmlFor="roleSelect">Select Role:</label>
@@ -25,7 +26,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-
+const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
   const handleRoleChange = (e) => {
     setRole(e.target.value);
   };
@@ -73,7 +74,9 @@ const SignUp = () => {
         }
       );
 
-      console.log(response.data); // Handle successful signup
+      console.log(response.data); 
+      // Handle successful signup
+      setIsSignUpSuccess(true);
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -103,7 +106,8 @@ const SignUp = () => {
           <h1>Neighbourhood Help</h1>
           <h2>Create Your Account</h2>
           <button className="googleSearch">
-            <img src={googleIcon} alt="google-icon" /> <span>Sign in with Google</span>
+            <img src={googleIcon} alt="google-icon" />{" "}
+            <span>Sign in with Google</span>
           </button>
           <div className="OR">
             <img src={line} alt="line" className="lineImage" />
@@ -114,35 +118,89 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <div className="inputFields">
             <label htmlFor="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName"  style={{paddingLeft:"15px"}} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              style={{ paddingLeft: "15px" }}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
           </div>
           <div className="inputFields">
             <label htmlFor="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName"  style={{paddingLeft:"15px"}} value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              style={{ paddingLeft: "15px" }}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
           </div>
           <div className="inputFields">
-            <UserRoleSelect  value={role} onChange={handleRoleChange}  />
+            <UserRoleSelect value={role} onChange={handleRoleChange} />
           </div>
           <div className="inputFields">
             <label htmlFor="email">Email Address:</label>
-            <input type="email" id="email" name="email"  style={{paddingLeft:"15px"}} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              style={{ paddingLeft: "15px" }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="inputFields">
             <label htmlFor="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone"  style={{paddingLeft:"15px"}} value={phoneNumber} onChange={(e) => setPhone(e.target.value)} />
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              style={{ paddingLeft: "15px" }}
+              value={phoneNumber}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
           <div className="inputFields">
             <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password"  style={{paddingLeft:"15px"}} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              style={{ paddingLeft: "15px" }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="inputFields">
             <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" style={{paddingLeft:"15px"}} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              style={{ paddingLeft: "15px" }}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
           </div>
           {error && <p className="error">{error}</p>}
-          <button type="submit" className="signupbtn" style={{marginLeft:"15%"}}>Sign Up</button>
-          <p><span className="paragraph" style={{marginLeft:"30%"}}>Don't have an account?</span> <Link to="/login">Sign In here</Link></p>
+          <button
+            type="submit"
+            className="signupbtn"
+            style={{ marginLeft: "15%" }}
+          >
+            Sign Up
+          </button>
+          <p>
+            <span className="paragraph" style={{ marginLeft: "30%" }}>
+              Already have an account?
+            </span>{" "}
+            <Link to="/login">Sign In here</Link>
+          </p>
         </form>
+        <CustomModal isOpen={isSignUpSuccess} />
       </div>
     </div>
   );

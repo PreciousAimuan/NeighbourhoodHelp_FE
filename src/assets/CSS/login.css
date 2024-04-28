@@ -188,5 +188,7 @@ label{
   font-size: small;
 }
 
-
+.error{
+    color: red;
+}
 

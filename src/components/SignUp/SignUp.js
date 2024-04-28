@@ -94,7 +94,8 @@ const SignUp = () => {
           },
         }
       );
-
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("email", response.data.email);
       console.log(response.data); // Handle successful signup
     } catch (error) {
       if (error.response) {
