@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../assets/CSS/login.css";
@@ -36,16 +36,19 @@ const Login = () => {
       } else {
         setError("Incorrect username or password");
       }
-      if (role === "User") {
-        navigate(`/user-dashboard`);
-      } else {
-        navigate(`/agent-dashboard`);
-      }
     } catch (error) {
       console.error("Login failed:", error);
       setError("Login failed. Please try again.");
     }
   };
+
+  useEffect(() => {
+    if (role === "User") {
+      navigate(`/user-dashboard`);
+    } else if (role === "Agent") {
+      navigate(`/agent-dashboard`);
+    }
+  }, [role]);
 
   return (
     <div className="loginContainer">

@@ -4,14 +4,13 @@ import formImage from "../../assets/images/bg.svg";
 import googleIcon from "../../assets/images/Google.svg";
 import line from "../../assets/images/line.svg";
 import { Link } from "react-router-dom";
-import {useHistory} from "react-router-dom"
-import axios from 'axios'
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,22 +21,27 @@ const Login = () => {
     }
 
     setError("");
-try {
-  const response = await axios.post(`https://localhost:7198/api/User/login`, {
-    email,
-    password,
-  });
+    try {
+      const response = await axios.post(
+        `https://localhost:7198/api/User/login`,
+        {
+          email,
+          password,
+        }
+      );
 
-  // Handle the response, maybe set user authentication token or redirect
-  console.log(response.data);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.id);
 
-window.location.reload();
-} catch (error) {
-  // Handle errors, display error message, etc.
-  console.error("Login failed:", error);
-  setError("Login failed. Please try again.");
-}
- 
+      // Handle the response, maybe set user authentication token or redirect
+      console.log(response.data);
+
+      window.location.reload();
+    } catch (error) {
+      // Handle errors, display error message, etc.
+      console.error("Login failed:", error);
+      setError("Login failed. Please try again.");
+    }
   };
 
   return (

@@ -6,6 +6,14 @@ import ReceiveLoader from "./ReceiveLoader";
 import { Link } from "react-router-dom";
 
 const Receive5 = () => {
+
+  const agent = JSON.parse(localStorage.getItem('agent'))
+  const rating = JSON.parse(localStorage.getItem('rating'))
+  //const errands = JSON.parse(localStorage.getItem('errands'))
+
+  //console.log(agent)
+  //console.log(errands.$values[0].id)
+  
   return (
     <div>
       <div className="back">
@@ -15,7 +23,7 @@ const Receive5 = () => {
 
       <div className="containers">
         <div className="ReceiveText">
-          <div className="bold-text">Receive a Package?</div>
+          <div className="bold-text">Create an errand</div>
           <div className="receive-note">
             <div className="notes">
               Get your packages delivered effortlessly. Just request, and our
@@ -48,10 +56,10 @@ const Receive5 = () => {
             <div className="note">Package Sent Successfully!</div>
             <div className="more-note">
               Your package has been scheduled for pickup at the <br />
-              designated time and date. Our trusted agent will be on their{" "}
+              designated time and date. Our trusted agent {agent.firstName + " " + agent.lastName} will be on their{" "}
               <br />
               way to collect your package, ensuring a secure and timely <br />
-              delivery. Thank you for choosing Neighbourhood Help for your{" "}
+              delivery, you can contact our agent via {agent.phoneNumber} and {agent.email} who has a rating of {rating}. Thank you for choosing Neighbourhood Help for your{" "}
               <br />
               delivery needs!
             </div>
@@ -59,7 +67,10 @@ const Receive5 = () => {
               <button
                 className="prev-button"
                 onClick={() => {
-                  window.location.href = "/";
+                  window.location.href = "/user-dashboard";
+                   localStorage.removeItem('receiveData1');
+                    localStorage.removeItem('receiveData2');
+                    localStorage.removeItem('receiveData3');
                 }}
               >
                 Go to Homepage

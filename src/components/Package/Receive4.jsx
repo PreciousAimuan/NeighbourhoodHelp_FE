@@ -1,21 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Package/Receive.css";
 import Arrow from "../../assets/images/arrow-left.png";
-import Card from '../../assets/images/Card.png'
+import Card from "../../assets/images/Card.png";
 import ReceiveLoader from "./ReceiveLoader";
 import { Link } from "react-router-dom";
+import { Input } from "./Receive";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Receive4 = () => {
+  const [receiveData4, setReceiveData4] = useState({});
+  const [errandCreated, setErrandCreated] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setReceiveData4({
+      ...receiveData4,
+      [name]: value,
+    });
+
+    console.log(receiveData4);
+  };
+
+  const navigate = useNavigate();
+
+  const receiveData1 = JSON.parse(localStorage.getItem("receiveData1"));
+  const receiveData2 = JSON.parse(localStorage.getItem("receiveData2"));
+  const receiveData3 = JSON.parse(localStorage.getItem("receiveData3"));
+  const userId = localStorage.getItem("userId");
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+
+   
+
+      const response = await axios.post("https://localhost:7198/api/Errand/create-errand", {
+        ...receiveData4,
+      });
+
+      console.log(response)
+
+      localStorage.setItem('agent', JSON.stringify(response.data.appUser));
+      localStorage.setItem('rating', JSON.stringify(response.data.rating));
+      setErrandCreated(true);
+      localStorage.setItem('errandCreated', 'true');
+      console.log(response.data.appUser)
+      console.log(response.data.rating)
+     // localStorage.setItem('errands', JSON.stringify(response.data.errands));
+ 
+      setTimeout(() => {
+       
+        navigate('/receive/5')
+      }, 2000)
+    } catch (error) {
+      alert("failure in sending errand")
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+
+    setReceiveData4({
+      ...receiveData1,
+      ...receiveData2,
+      ...receiveData3,
+      ...receiveData4,
+      userId: userId,
+    });
+  }, [receiveData1, receiveData2, receiveData3, receiveData4, userId]);
+
   return (
     <div>
       <div className="back">
         <img src={Arrow} alt="left-arrow" />
-        <span><Link to={'/receive/3'}>Back</Link></span>
+        <span>
+          <Link to={"/receive/3"}>Back</Link>
+        </span>
       </div>
 
       <div className="containers">
         <div className="ReceiveText">
-          <div className="bold-text">Receive a Package?</div>
+          <div className="bold-text">Create an errand</div>
           <div className="receive-note">
             <div className="notes">
               Get your packages delivered effortlessly. Just request, and our
@@ -46,18 +113,26 @@ const Receive4 = () => {
           <div className="package-info">
             <img src={Card} alt="cool-card" className="cool-card" />
             <div className="actual-note-div">
-              <div className="package-question">
-                Make an Offer
-              </div>
+              <div className="package-question">Make an Offer</div>
               <div className="actual-note">
-              "Propose your price. Tell us the amount you're willing to pay and let's <br/>
-              negotiate."
+                "Propose your price. Tell us the amount you're willing to pay
+                and let's <br />
+                negotiate."
               </div>
             </div>
           </div>
-          <div className="form-2">
-            <div className="first-form-div">
-              <div className="first-input">
+          <div className="form-2" >
+            <Input
+              inputData={{
+                label: "Amount",
+                type: "number",
+                placeholder: `Amount in Naira`,
+                onChange: handleChange,
+                name: "price",
+              }}
+            />
+
+            {/* <div className="first-input">
                 <span className="first-word">Amount</span>
                 <div className="frame">
                   <div className="input-field-3">
@@ -68,30 +143,29 @@ const Receive4 = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> */}
+            
           </div>
+          <div className="step-2">
+              <button
+                className="prev-button"
+                onClick={() => {
+                  window.location.href = "/receive/3";
+                }}
+              >
+                Previous step
+              </button>
+              <button className="next-button" onClick={handleSubmit}>
+                Submit
+              </button>
+            </div>
         </div>
       </div>
-      <div className="step-2">
-        <button
-          className="prev-button"
-          onClick={() => {
-            window.location.href = "/receive/3";
-          }}
-        >
-          Previous step
-        </button>
-        <button
-          className="next-button"
-          onClick={() => {
-            window.location.href = "/receive/5";
-          }}
-        >
-          Next step
-        </button>
-      </div>
-      <ReceiveLoader bulletColors={["#000080", "#000080", "#000080", "#EFF0F6"]} lineColors={["#000080", "#000080", "#000080", "#EFF0F6"]} />
+
+      <ReceiveLoader
+        bulletColors={["#000080", "#000080", "#000080", "#EFF0F6"]}
+        lineColors={["#000080", "#000080", "#000080", "#EFF0F6"]}
+      />
     </div>
   );
 };
