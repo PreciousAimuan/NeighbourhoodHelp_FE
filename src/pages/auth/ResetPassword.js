@@ -1,33 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../assets/CSS/resetpassword.css';
 import formImage from '../../assets/images/bg.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; 
+import axios from 'axios'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState('');
+  const [newPassword, setnewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); 
 
-  const handleSubmit = (e) => {
+  const location = useLocation();
+  const email = new URLSearchParams(location.search).get('email');
+  const token = encodeURIComponent(new URLSearchParams(location.search).get('token'));
+  
+  useEffect(() => {
+    
+  }, [location]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!password || !confirmPassword) {
+    if (!newPassword || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
-    if (password.length < 6 || !/\d/.test(password) || !/[a-zA-Z]/.test(password) || !/[^a-zA-Z0-9]/.test(password)) {
-      setError('Password must be not be less than 6');
-      return;
-    }
+    try {
+      await axios.patch(`https://localhost:7198/api/User/reset-password?email=${email}&token=${token}&newPassword=${newPassword}`);
+      
+      toast.success('Password reset successfully!', {
+        position: 'top-center',
+        className: "toast-message",
+      });
 
-    setError('');
-    
+      setTimeout(() => {
+        navigate('/login'); 
+      }, 3000);
+      
+    } catch (error) {
+      console.error(error);
+      setError('An error occurred while resetting the password.');
+    }
   };
 
   return (
@@ -42,18 +63,19 @@ const ResetPassword = () => {
         <form onSubmit={handleSubmit}>
           <div className="inputFields">
             <label htmlFor="password">New Password:</label>
-            <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{paddingLeft:"15px"}} />
+            <input type="password" id="password" name="password" value={newPassword} onChange={(e) => setnewPassword(e.target.value)} style={{paddingLeft:"15px"}} />
           </div>
           <div className="inputFields">
             <label htmlFor="confirmPassword">Confirm New Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} style={{paddingLeft:"15px"}} />
           </div>
           {error && <p className="error">{error}</p>}
-          <button type="submit" className="resetpasswordbtn" style={{marginLeft:"15%"}}>Send reset instructions</button>
+          <button type="submit" className="resetpasswordbtn" style={{marginLeft:"15%"}}>Reset Password</button>
           <p><span className="paragraph"  style={{marginLeft:"30%"}}>Don't have an account?</span> <Link to="/signup">Sign Up here</Link></p>
         </form>
           
       </div>
+      <ToastContainer />
     </div>
   );
 };

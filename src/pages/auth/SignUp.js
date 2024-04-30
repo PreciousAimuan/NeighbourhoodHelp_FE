@@ -31,11 +31,22 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
     setRole(e.target.value);
   };
 
+  const validatePhoneNumber = (phoneNumber) => {
+    
+    const phoneRegex = /^[0-9]{11}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!role || !firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword) {
       setError('Please fill in all fields');
+      return;
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      setError('Please enter a valid phone number');
       return;
     }
 
