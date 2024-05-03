@@ -7,12 +7,14 @@ import { Link } from "react-router-dom";
 
 const Receive5 = () => {
 
-  const agent = JSON.parse(localStorage.getItem('agent'))
+  
   const rating = JSON.parse(localStorage.getItem('rating'))
   //const errands = JSON.parse(localStorage.getItem('errands'))
-
+  const agent = JSON.parse(localStorage.getItem('agent'));
+  console.log(agent)
   //console.log(agent)
   //console.log(errands.$values[0].id)
+  // console.log(agent.errands.$values[0].agent.appUser.firstName)
   
   return (
     <div>

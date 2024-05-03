@@ -123,7 +123,10 @@
   flex-direction: column;
   box-sizing: border-box;
 }
-
+.price{
+  margin-top: 20px;
+  color: #ffffff;
+}
 .brg {
   display: flex;
   flex-direction: row;

@@ -40,20 +40,30 @@ const Receive4 = () => {
         ...receiveData4,
       });
 
-      console.log(response)
+      //console.log(response.data.user.firstName)
 
-      localStorage.setItem('agent', JSON.stringify(response.data.appUser));
-      localStorage.setItem('rating', JSON.stringify(response.data.rating));
+      localStorage.setItem('agent', JSON.stringify(response.data.user.errands.$values[0].agent.appUser));
+      localStorage.setItem('rating', JSON.stringify(response.data.user.errands.$values[0].agent.rating));
+      localStorage.setItem('errandId', JSON.stringify(response.data.user.errands.$values[0].id));
+      localStorage.setItem('userFirstname', JSON.stringify(response.data.user.firstName));
+      localStorage.setItem('userLastname', JSON.stringify(response.data.user.lastName));
+      localStorage.setItem('userPhoneNumber', JSON.stringify(response.data.user.phoneNumber));
+      localStorage.setItem('userEmail', JSON.stringify(response.data.user.email));
+      localStorage.setItem('price', JSON.stringify(response.data.user.errands.$values[0].price));
       setErrandCreated(true);
       localStorage.setItem('errandCreated', 'true');
-      console.log(response.data.appUser)
-      console.log(response.data.rating)
-     // localStorage.setItem('errands', JSON.stringify(response.data.errands));
+      // console.log(response.data.user.errands.$values[0].agent.rating)
+      // console.log(response.data)
+      // console.log(response.data.user.errands.$values[0].agent.appUser.firstName)
+      // localStorage.setItem('errands', JSON.stringify(response.data.errands));
+      console.log(response.data.user.lastName)
+      console.log(response.data.user.firstName)
+      console.log(response.data.user.phoneNumber)
+      console.log(response.data.user.email)
+      console.log(response.data.user.errands.$values[0].price)
+      console.log(response.data.user.errands.$values[0].id)
  
-      setTimeout(() => {
-       
-        navigate('/receive/5')
-      }, 2000)
+      navigate('/receive/5')
     } catch (error) {
       alert("failure in sending errand")
       console.log(error);
@@ -146,7 +156,8 @@ const Receive4 = () => {
               </div> */}
             
           </div>
-          <div className="step-2">
+        </div>
+        <div className="step-2">
               <button
                 className="prev-button"
                 onClick={() => {
@@ -159,7 +170,6 @@ const Receive4 = () => {
                 Submit
               </button>
             </div>
-        </div>
       </div>
 
       <ReceiveLoader
