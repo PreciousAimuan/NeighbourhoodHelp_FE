@@ -13,10 +13,11 @@ import Receive3 from './Package/Receive3';
 import Receive4 from './Package/Receive4';
 import Receive5 from './Package/Receive5';
 import UserDashboard from '../pages/Dashboard/UserDashboard';
-import AgentDashboard from '../pages/Dashboard/AgentDashboard';
+//import AgentDashboard from '../pages/Dashboard/AgentDashboard';
 import UserProfileUpdate from './UpdateProfile/UserProfileUpdate';
 import AgentSignUp from './Agent-SignUp/AgentSignUp';
 import History from '../pages/History/History';
+import Dashboardrecenterrands from '../pages/Recenterrands/Recenterrands';
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/resetinstruction" element={<ResetInstruction />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/agent-dashboard" element={<AgentDashboard />} />
+          <Route path="/agent-dashboard" element={<Dashboardrecenterrands />} />
           <Route path="/receive" element={<Receive />} />
           <Route path="/receive/2" element={<Receive2 />} />
           <Route path="/receive/3" element={<Receive3 />} />
@@ -37,7 +38,8 @@ function App() {
           <Route path="/receive/5" element={<Receive5 />} />
           <Route path="/userProfileUpdate" element={<UserProfileUpdate />} />
           <Route path="/agentSignup" element={<AgentSignUp />} />
-          <Route path="/dashboard/history" element={<History />} />
+          <Route path="/agent-dashboard/history" element={<History />} />
+          <Route path="/agent-dashboard/recenterrands" element={<Dashboardrecenterrands />} />
         </Routes>
       </Router>
     </>

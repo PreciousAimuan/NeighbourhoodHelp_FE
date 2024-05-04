@@ -30,7 +30,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Dashboard_logo} alt="Dashboard logo" />
                   <h4>
-                    <a href="/dashboard">Dashboard</a>
+                  <Link to="/agent-dashboard/recenterrands">Dashboard</Link>
                   </h4>
                 </div>
                 <div className="dash">
@@ -42,7 +42,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={folder_logo} alt="History logo" />
                   <h4>
-                    <Link to="/dashboard/history">History</Link>
+                    <Link to="/agent-dashboard/history">History</Link>
                   </h4>
                 </div>
               </div>
