@@ -66,7 +66,7 @@ const ResetInstruction = () => {
               Send reset instructions
             </button>
             <p>
-              <span className="paragraph" style={{ marginLeft: '30%' }}>Don't have an account?</span> <Link to="/login">Sign In here</Link>
+              <span className="paragraph" style={{ marginLeft: '30%' }}>Already have an account?</span> <Link to="/login">Sign In here</Link>
             </p>
           </form>
         )}

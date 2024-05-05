@@ -29,7 +29,7 @@ const ServiceTable = ({ agentId }) => {
         }
       } catch (error) {
         console.error("Error fetching errands:", error);
-        setError("You haven't received any errands");
+        setError("No Errands founds");
       } finally {
         setLoading(false);
       }

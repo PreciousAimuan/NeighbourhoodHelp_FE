@@ -16,6 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Form validation
     if (!email.trim() || !password.trim()) {
       setError("Please fill in all fields");
       return;
@@ -42,13 +43,14 @@ const Login = () => {
     }
   };
 
+  // Use useEffect to perform redirection after role state is updated
   useEffect(() => {
     if (role === "User") {
       navigate(`/user-dashboard`);
     } else if (role === "Agent") {
       navigate(`/agent-dashboard`);
     }
-  }, [role]);
+  }, [role]); // Only trigger the effect when role changes
 
   return (
     <div className="loginContainer">
@@ -94,6 +96,7 @@ const Login = () => {
             {error && !password && (
               <p className="error">Please enter your password</p>
             )}
+            {error && email && password && <p className="error">{error}</p>}
             <Link
               to="/resetinstruction"
               style={{ textDecoration: "none", color: "#000080" }}
@@ -123,23 +126,25 @@ const Login = () => {
 
 export { Login };
 
-// import React, { useState } from "react";
+// import React, { useState, useEffect } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import axios from "axios";
 // import "../../assets/CSS/login.css";
 // import formImage from "../../assets/images/bg.svg";
 // import googleIcon from "../../assets/images/Google.svg";
 // import line from "../../assets/images/line.svg";
-// import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
 
 // const Login = () => {
 //   const [email, setEmail] = useState("");
 //   const [password, setPassword] = useState("");
 //   const [error, setError] = useState("");
 //   const navigate = useNavigate();
+//   const [role, setRole] = useState("");
+
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 
-//     if (!email || !password) {
+//     if (!email.trim() || !password.trim()) {
 //       setError("Please fill in all fields");
 //       return;
 //     }
@@ -148,30 +153,31 @@ export { Login };
 //     try {
 //       const response = await axios.post(
 //         `https://localhost:7198/api/User/login`,
-//         {
-//           email,
-//           password,
-//         }
+//         { email, password }
 //       );
-//       if (response.status !== 200) {
-//         alert("Incorrect username or password");
-//       } else {
-//         // Handle the response, maybe set user authentication token or redirect
+
+//       if (response.status === 200) {
 //         localStorage.setItem("token", response.data.token);
 //         localStorage.setItem("userId", response.data.id);
 //         localStorage.setItem("role", response.data.role);
-//         console.log(response.data);
-//         if (response.data.role === "user") {
-//         navigate(`/user-dashboard`);
+//         setRole(response.data.role);
+//       } else {
+//         setError("Incorrect username or password");
 //       }
-//     }
-//       //window.location.reload();
 //     } catch (error) {
-//       // Handle errors, display error message, etc.
 //       console.error("Login failed:", error);
 //       setError("Login failed. Please try again.");
 //     }
 //   };
+
+//   // Use useEffect to perform redirection after role state is updated
+//   useEffect(() => {
+//     if (role === "User") {
+//       navigate(`/user-dashboard`);
+//     } else if (role === "Agent") {
+//       navigate(`/agent-dashboard`);
+//     }
+//   }, [role]); // Only trigger the effect when role changes
 
 //   return (
 //     <div className="loginContainer">

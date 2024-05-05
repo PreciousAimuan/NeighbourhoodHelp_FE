@@ -10,12 +10,15 @@ import profile_img from "../../assets/images/Ellipse.png";
 import notification_logo from "../../assets/images/notification.png";
 
 const Dashboard_sidebar = () => {
-    const navigate = useNavigate();
-    const handleLogout = () => {
-      // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
-      localStorage.clear();
-      navigate("/login")
-    };
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
+    localStorage.clear();
+    navigate("/login");
+  };
+  const userRole = localStorage.getItem("role");
+  const dashboardLink =
+    userRole === "Agent" ? "/agent-dashboard" : "/user-dashboard";
   return (
     <div className="containerss">
       <div className="dashboard-sidebar">
@@ -30,15 +33,15 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Dashboard_logo} alt="Dashboard logo" />
                   <h4>
-                  <Link to="/agent-dashboard/recenterrands">Dashboard</Link>
+                    <Link to={dashboardLink}>Dashboard</Link>
                   </h4>
                 </div>
-                <div className="dash">
+                {/* <div className="dash">
                   <img src={Discover_logo} alt="Track logo" />
                   <h4>
                     <a href="/">Track</a>
                   </h4>
-                </div>
+                </div> */}
                 <div className="dash">
                   <img src={folder_logo} alt="History logo" />
                   <h4>
@@ -55,7 +58,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Profile_logo} alt="Profile logo" />
                   <h4>
-                    <a href="/">Profile</a>
+                    <a href>Profile</a>
                   </h4>
                 </div>
                 <div className="dash">

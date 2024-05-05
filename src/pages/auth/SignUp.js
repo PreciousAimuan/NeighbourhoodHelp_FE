@@ -19,6 +19,7 @@ const UserRoleSelect = ({ value, onChange }) => (
 
 const SignUp = () => {
   const [role, setRole] = useState('');
+  const [userId, setUserId] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -87,7 +88,12 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
 
       console.log(response.data); 
       // Handle successful signup
+      setUserId(response.data.userId);
       setIsSignUpSuccess(true);
+      localStorage.setItem("email", email);
+      localStorage.setItem("role", role);
+      localStorage.setItem("userId", response.data.userId);
+
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code

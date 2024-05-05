@@ -216,4 +216,7 @@
     background-color: cornflowerblue;
   }
 
-  
+  .error{
+    position: absolute;
+    margin-top: 80px;
+  }
