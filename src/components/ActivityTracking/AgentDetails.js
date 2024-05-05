@@ -1,4 +1,3 @@
-
 import React from "react";
 import Pic from "../../assets/images/pic.jpg";
 import Star from "../../assets/images/star.svg";
@@ -6,7 +5,10 @@ import Box from "../../assets/images/box.svg";
 import "./AgentDetails.css";
 
 const AgentDetails = ({ agent }) => {
-  //const price = JSON.parse(localStorage.getItem('price'))
+  // Check if agent data is in the initial format
+  const agentData = agent.message ? agent.message : agent;
+  const userPrice = localStorage.getItem("price");
+
   return (
     <div>
       <div className="trackingdiv">
@@ -26,7 +28,10 @@ const AgentDetails = ({ agent }) => {
             <img className="vector" src={Pic} alt="" />
           </div>
           <div className="more">
-            <div className="agent-name">{agent.message.firstName} {agent.message.lastName}</div>
+            {/* Check if agent data exists before accessing properties */}
+            <div className="agent-name">
+                {agentData.firstName} {agentData.lastName}
+            </div>
             <div className="group-3105">
               <span className="tell-us-more-1">3</span>
               <img className="star" src={Star} alt="" />
@@ -34,12 +39,18 @@ const AgentDetails = ({ agent }) => {
           </div>
         </div>
         <div className="price">
-            Amount: {agent.message.price}
+              {agentData === agent ? 
+                `Amount: ${userPrice}` :
+                `Amount: ${agentData.price}`}
         </div>
         <div className="bright">
-          <div className="tell-us-more-7">{agent.message.phoneNumber}</div>
+          <div className="tell-us-more-7">
+              {agentData.phoneNumber}
+          </div>
           <div className="brg">
-            <div className="tell-us-more-8">{agent.message.email}</div>
+            <div className="tell-us-more-8">
+              {agentData.email}
+            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-
+// NegotiatePrice.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import './NegotiatePrice.css';
@@ -6,7 +6,6 @@ import './NegotiatePrice.css';
 const NegotiatePrice = () => {
     const [amount, setAmount] = useState('');
     const [responseData, setResponseData] = useState(null); // State to store response data
-    // const [currentAction, setCurrentAction] = useState(null); // State to store current action
 
     const handleAmountChange = (event) => {
         setAmount(event.target.value);
@@ -34,9 +33,9 @@ const NegotiatePrice = () => {
                     break;
             }
             console.log(JSON.stringify(response.data));
-            localStorage.setItem('responseData1', JSON.stringify(response.data));
-            setResponseData(response.data); // Set response data to state
-            // setCurrentAction(action); // Set current action
+            localStorage.setItem('agent', JSON.stringify(response.data)); // Set response data to local storage
+            //localStorage.setItem('price', JSON.stringify(response.data.message.price));
+            setResponseData(response.data); // Update state with response data
             window.location.reload();
         } catch (error) {
             console.error('Error:', error);
@@ -80,3 +79,4 @@ const NegotiatePrice = () => {
 };
 
 export default NegotiatePrice;
+

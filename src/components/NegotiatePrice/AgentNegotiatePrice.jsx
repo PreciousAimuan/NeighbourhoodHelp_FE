@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './NegotiatePrice.css';
 
-const NegotiatePrice = () => {
+const AgentNegotiatePrice = () => {
     const [amount, setAmount] = useState('');
     const [responseData2, setResponseData] = useState(null); // State to store response data
     // const [currentAction, setCurrentAction] = useState(null); // State to store current action
@@ -35,9 +35,11 @@ const NegotiatePrice = () => {
             }
             console.log(JSON.stringify(response.data));
             localStorage.setItem('responseData2', JSON.stringify(response.data));
+            localStorage.setItem('price', JSON.stringify(response.data.message.price));
             setResponseData(response.data); // Set response data to state
             // setCurrentAction(action); // Set current action
             window.location.reload();
+
         } catch (error) {
             console.error('Error:', error);
         }
@@ -79,18 +81,18 @@ const NegotiatePrice = () => {
     );
 };
 
-export default NegotiatePrice;
+export default AgentNegotiatePrice;
 
 
-
+// // NegotiatePrice.js
 // import React, { useState } from 'react';
 // import axios from 'axios';
 // import './NegotiatePrice.css';
 
 // const NegotiatePrice = () => {
 //     const [amount, setAmount] = useState('');
-//     const [responseData, setResponseData] = useState(null); // State to store response data
-//     const [currentAction, setCurrentAction] = useState(null); // State to store current action
+//     const [responseData2, setResponseData] = useState(null); // State to store response data
+//     // const [currentAction, setCurrentAction] = useState(null); // State to store current action
 
 //     const handleAmountChange = (event) => {
 //         setAmount(event.target.value);
@@ -101,14 +103,6 @@ export default NegotiatePrice;
 //             console.log(`Button clicked: ${action}`);
         
 //             const errandId = JSON.parse(localStorage.getItem('errandId'));
-//             // console.log(errandId);
-
-//             // if (!errands || !errands.$values || errands.$values.length === 0) {
-//             //     console.error('errands data is missing or empty.');
-//             //     return;
-//             // }
-
-//             // const errandId = errands.$values[0].id;
 //             console.log('Errand ID:', errandId);  
             
 //             let response;
@@ -126,9 +120,10 @@ export default NegotiatePrice;
 //                     break;
 //             }
 //             console.log(JSON.stringify(response.data));
-//             localStorage.setItem('response', JSON.stringify(response.data));
+//             localStorage.setItem('responseData2', JSON.stringify(response.data));
 //             setResponseData(response.data); // Set response data to state
-//             setCurrentAction(action); // Set current action
+//             // setCurrentAction(action); // Set current action
+//             window.location.reload();
 //         } catch (error) {
 //             console.error('Error:', error);
 //         }
@@ -166,20 +161,6 @@ export default NegotiatePrice;
 //                     Counter
 //                 </button>
 //             </div>
-//             {/* Display response data */}
-//             {responseData && (
-//                 <div className="response-container">
-//                     {currentAction === 'accept' || currentAction === 'decline' ? (
-//                         <div className="agent-details">
-//                             <p>FirstName: {responseData.message.firstName}</p>
-//                             <p>LastName: {responseData.message.lastName}</p>
-//                             <p>PhoneNumber: {responseData.message.phoneNumber}</p>
-//                         </div>
-//                     ) : (
-//                         <p>{responseData.message}</p>
-//                     )}
-//                 </div>
-//             )}
 //         </div>
 //     );
 // };

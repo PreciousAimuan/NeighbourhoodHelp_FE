@@ -13,7 +13,7 @@ const Dashboard_sidebar = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
       // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
-      localStorage.clear();
+      //localStorage.clear();
       navigate("/login")
     };
   return (
