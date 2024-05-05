@@ -2,71 +2,53 @@ import React, { useState, useEffect } from 'react';
 import './UserProfileUpdate.css';
 import camera from '../../assets/images/cameraimage.png';
 import axios from 'axios';
+import Dashboard_sidebar from '../Dashboard/Dashboard_sidebar';
+import Navbar from "../../components/Dashboard/Navbar"
 
 function UserProfileUpdate() {
-    const [formData, setFormData] = useState({
+    const [userData, setUserData] = useState({
+        id: '',
         firstName: '',
         lastName: '',
         email: '',
         phoneNumber: '',
-        state: '',
-        cityTown: '',
-        streetAddress: '',
-        postalCode: ''
+        postalCode: '',
+        image: '',
+        street: '',
+        city: '',
+        state: ''
     });
-    const [profileImage, setProfileImage] = useState(null); // Default image is null
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    useEffect(() => {
-        // Fetch user data upon component mount (similar logic can be used upon login/signup)
-        fetchUserData();
-    }, []); // Empty dependency array ensures this effect runs only once upon component mount
-
-    const fetchUserData = async () => {
-        try {
-            // Fetch user data from your API endpoint
-            const response = await axios.get('http://localhost:7198/api/User/Get-Users-Profile');
-
-            // Update form data with fetched user data
-            setFormData({
-                firstName: response.data.firstName,
-                lastName: response.data.lastName,
-                email: response.data.email,
-                phoneNumber: response.data.phoneNumber,
-                state: response.data.state,
-                cityTown: response.data.cityTown,
-                streetAddress: response.data.streetAddress,
-                postalCode: response.data.postalCode
-            });
-
-            // Update profile image if available
-            if (response.data.profileImage) {
-                setProfileImage(response.data.profileImage);
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-            // Optionally, display an error message to the user
-        }
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+    const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        postalCode: '',
+        image: '',
+        street: '',
+        city: '',
+        state: ''
+    });
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
-
+    
         reader.onloadend = () => {
-            setProfileImage(reader.result); // Update profile image with uploaded image URL
+            // Create a Blob object from the file data
+            const imageData = new Blob([reader.result], { type: file.type });
+    
+            setUserData(prevState => ({
+                ...prevState,
+                image: imageData
+            }));
         };
-
+    
         if (file) {
-            reader.readAsDataURL(file); // Read the uploaded file as a data URL
+            reader.readAsArrayBuffer(file);
         }
     };
 
@@ -78,152 +60,274 @@ function UserProfileUpdate() {
         setIsModalOpen(false);
     };
 
+    const getUserInfo = async () => {
+        try {
+            const userId = localStorage.getItem('userId');
+            const response = await axios.get(`https://localhost:7198/api/User/Get-User-Details?userId=${userId}`);
+            setUserData(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setUserData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const validateForm = (userData) => {
+        const errors = {};
+    
+        // First Name validation
+        if (!userData.firstName.trim()) {
+            errors.firstName = "First Name is required.";
+        }
+        // Last Name validation
+        if (!userData.lastName.trim()) {
+            errors.lastName = "Last Name is required.";
+        }
+        // Email validation
+        if (!userData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email)) {
+            errors.email = "Please enter a valid email address.";
+        }
+    
+        // Phone Number validation
+        if (!userData.phoneNumber.trim() || !/^\d+$/.test(userData.phoneNumber)) {
+            errors.phoneNumber = "Please enter a valid phone number (numbers only).";
+        }
+    
+        // Postal Code validation
+        if (!userData.postalCode.trim()) {
+            errors.postalCode = "Postal Code is required.";
+        }
+    
+        // Image validation
+        if (!userData.image) {
+            errors.image = "Image is required.";
+        }
+    
+        // Street validation
+        if (!userData.street.trim()) {
+            errors.street = "Street Address is required.";
+        }
+        
+        // City validation
+        if (!userData.city.trim()) {
+            errors.city = "City is required.";
+        }
+    
+        // State validation
+        if (!userData.state.trim()) {
+            errors.state = "State is required.";
+        }
+    
+        return errors;
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const formDataToSend = new FormData();
-            Object.entries(formData).forEach(([key, value]) => {
-                formDataToSend.append(key, value);
-            });
-            formDataToSend.append('image', profileImage);
+        setIsLoading(true);
 
-            const response = await axios.patch('http://localhost:7198/api/User/Update-Users-Profile', formDataToSend);
-            console.log('Data saved successfully:', response.data);
-            // Optionally, perform any necessary state updates or display a success message
+        // Validate form data
+        const formErrors = validateForm(userData);
+
+        // Update errors state
+        setErrors(formErrors);
+
+        // If there are validation errors, stop form submission
+        if (Object.keys(formErrors).length > 0) {
+            setIsLoading(false); // Stop loading spinner
+            return;
+        }
+
+        // Proceed with form submission if no errors
+        const userId = localStorage.getItem("userId");
+        const token = localStorage.getItem("token");
+
+        if (!userId || !token) {
+            throw new Error("User ID or token not found.");
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append("firstName", userData.firstName);
+            formData.append("lastName", userData.lastName);
+            formData.append("email", userData.email);
+            formData.append("phoneNumber", userData.phoneNumber);
+            formData.append("postalCode", userData.postalCode);
+            formData.append("state", userData.state);
+            formData.append("city", userData.city);
+            formData.append("street", userData.street);
+            if (userData.image instanceof Blob) {
+                formData.append("image", userData.image, userData.image.name); // Include filename
+            }
+            
+            const response = await axios.patch(
+                `https://localhost:7198/api/User/Update-Users-Profile/${userId}`,
+                formData, {
+                headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` }
+
+            }
+            );
+
+            console.log("Data saved successfully:", response.data);
+            alert("Profile updated succesfully");
         } catch (error) {
-            console.error('Error saving data:', error);
-            // Optionally, display an error message to the user
+            console.error("Error saving data:", error.response?.data ?? error.message);
+            // Display error message to the user
+            alert("Profile update failed");
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div>
-            <div className="user-photo-container">
-                <div className="user-photo" onClick={handleImageClick}>
-                    {profileImage ? (
-                        <img src={profileImage} alt="User" />
-                    ) : (
-                        <div className="default-user-photo"></div>
-                    )}
+        <div className='update-profile'>
+            <Dashboard_sidebar />
+            <div className='updateform'>
+                <div className="user-photo-container">
+                    <div className="user-photo" onClick={handleImageClick}>
+                        {userData.image ? (
+                            <img src={userData.image} alt="User" />
+                        ) : (
+                            <div className="default-user-photo"></div>
+                        )}
+                    </div>
+                    <input type="file" onChange={handleImageChange} accept="image/*" className="file-input" id="image" style={{ display: 'none' }} />
+                    <label htmlFor="image" className="camera-button">
+                        <img src={camera} alt="Camera" className="camera-photo" />
+                    </label>
                 </div>
-                <input type="file" onChange={handleImageChange} accept="image/*" className="file-input" id="file-input" style={{ display: 'none' }} />
-                <label htmlFor="file-input" className="camera-button">
-                    <img src={camera} alt="Camera" className="camera-photo" />
-                </label>
-            </div>
-            {/* Modal */}
-            {isModalOpen && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <span className="close" onClick={closeModal}>&times;</span>
-                        <div className="modal-content">
-                            {profileImage && <img src={profileImage} alt="User" className="modal-image" />}
+                {isModalOpen && (
+                    <div className="modal-overlay">
+                        <div className="modal">
+                            <span className="close" onClick={closeModal}>&times;</span>
+                            <div className="modal-content">
+                                {userData.image && <img src={userData.image} alt="User" className="modal-image" />}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            <form className="form-container" onSubmit={handleSubmit}>
-                <div className="form-row-1">
-                    <div className="form-col-1-1">
-                        <label htmlFor="firstName" className='lfn roboto-regular'>First Name</label>
-                        <input
-                            className='fn'
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                        />
+                <form className="form-container" onSubmit={handleSubmit}>
+                    <div className="form-row-1">
+                        <div className="form-col-1-1">
+                            <label htmlFor="firstName" className='lfn roboto-regular'>First Name</label>
+                            <input
+                                className='fn'
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                value={userData.firstName}
+                                onChange={handleChange}
+                            />
+                            {errors.firstName && <span className="error">{errors.firstName}</span>}
+                        </div>
+                        <div className="form-col-1-2">
+                            <label htmlFor="lastName" className='lln roboto-regular'>Last Name</label>
+                            <input
+                                className='ln'
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                value={userData.lastName}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.lastName}</span>
+                        </div>
                     </div>
-                    <div className="form-col-1-2">
-                        <label htmlFor="lastName" className='lln roboto-regular'>Last Name</label>
-                        <input
-                            className='ln'
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                        />
+                    <div className="form-row-2">
+                        <div className="form-col-2-1">
+                            <label htmlFor="email" className='eln roboto-regular'>Email Address</label>
+                            <input
+                                className='ein'
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={userData.email}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.email}</span>
+                        </div>
+                        <div className="form-col-2-2">
+                            <label htmlFor="phoneNumber" className='pln roboto-regular'>Phone Number</label>
+                            <input
+                                className='pin'
+                                type="tel"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={userData.phoneNumber}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.phoneNumber}</span>
+                        </div>
                     </div>
-                </div>
-                <div className="form-row-2">
-                    <div className="form-col-2-1">
-                        <label htmlFor="email" className='eln roboto-regular'>Email Address</label>
-                        <input
-                            className='ein'
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
+                    <div className="form-row-3">
+                        <div className="form-col-3-1">
+                            <label htmlFor="state" className='sln roboto-regular'>State</label>
+                            <input
+                                className='sin'
+                                type="text"
+                                id="state"
+                                name="state"
+                                value={userData.state}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.state}</span>
+                        </div>
+                        <div className="form-col-3-2">
+                            <label htmlFor="city" className='ctln roboto-regular'>City</label>
+                            <input
+                                className='ctin'
+                                type="text"
+                                id="city"
+                                name="city"
+                                value={userData.city}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.city}</span>
+                        </div>
                     </div>
-                    <div className="form-col-2-2">
-                        <label htmlFor="phoneNumber" className='pln roboto-regular'>Phone Number</label>
-                        <input
-                            className='pin'
-                            type="tel"
-                            id="phoneNumber"
-                            name="phoneNumber"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                        />
+                    <div className="form-row-4">
+                        <div className="form-col-4-1">
+                            <label htmlFor="street" className='saln roboto-regular'>Street Address</label>
+                            <input
+                                className='sain'
+                                type="text"
+                                id="street"
+                                name="street"
+                                value={userData.street}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.street}</span>
+                        </div>
+                        <div className="form-col-4-2">
+                            <label htmlFor="postalCode" className='pcln roboto-regular'>Postal Code</label>
+                            <input
+                                className='pcin'
+                                type="text"
+                                id="postalCode"
+                                name="postalCode"
+                                value={userData.postalCode}
+                                onChange={handleChange}
+                            />
+                            <span className="error">{errors.postalCode}</span>
+                        </div>
                     </div>
-                </div>
-                <div className="form-row-3">
-                    <div className="form-col-3-1">
-                        <label htmlFor="state" className='sln roboto-regular'>State</label>
-                        <input
-                            className='sin'
-                            type="text"
-                            id="state"
-                            name="state"
-                            value={formData.state}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-col-3-2">
-                        <label htmlFor="cityTown" className='ctln roboto-regular'>City/Town</label>
-                        <input
-                            className='ctin'
-                            type="text"
-                            id="cityTown"
-                            name="cityTown"
-                            value={formData.cityTown}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <div className="form-row-4">
-                    <div className="form-col-4-1">
-                        <label htmlFor="streetAddress" className='saln roboto-regular'>Street Address</label>
-                        <input
-                            className='sain'
-                            type="text"
-                            id="streetAddress"
-                            name="streetAddress"
-                            value={formData.streetAddress}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-col-4-2">
-                        <label htmlFor="postalCode" className='pcln roboto-regular'>Postal Code</label>
-                        <input
-                            className='pcin'
-                            type="text"
-                            id="postalCode"
-                            name="postalCode"
-                            value={formData.postalCode}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <button type="submit" className='btn '>Save Changes</button>
-            </form>
+                    <button type="submit" className='btn'>Save Changes</button>
+                </form>
+            </div>
+            <Navbar userImage={userData.image}/>
         </div>
     );
 }
 
 export default UserProfileUpdate;
+

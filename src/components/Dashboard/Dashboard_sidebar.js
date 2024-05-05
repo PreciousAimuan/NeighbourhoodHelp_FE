@@ -10,15 +10,12 @@ import profile_img from "../../assets/images/Ellipse.png";
 import notification_logo from "../../assets/images/notification.png";
 
 const Dashboard_sidebar = () => {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
-    localStorage.clear();
-    navigate("/login");
-  };
-  const userRole = localStorage.getItem("role");
-  const dashboardLink =
-    userRole === "Agent" ? "/agent-dashboard" : "/user-dashboard";
+    const navigate = useNavigate();
+    const handleLogout = () => {
+      // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
+      localStorage.clear();
+      navigate("/login")
+    };
   return (
     <div className="containerss">
       <div className="dashboard-sidebar">
@@ -33,7 +30,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Dashboard_logo} alt="Dashboard logo" />
                   <h4>
-                    <Link to={dashboardLink}>Dashboard</Link>
+                    <a href="/user-dashboard">Dashboard</a>
                   </h4>
                 </div>
                 {/* <div className="dash">
@@ -45,7 +42,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={folder_logo} alt="History logo" />
                   <h4>
-                    <Link to="/agent-dashboard/history">History</Link>
+                    <Link to="">History</Link>
                   </h4>
                 </div>
               </div>
@@ -58,13 +55,13 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Profile_logo} alt="Profile logo" />
                   <h4>
-                    <a href>Profile</a>
+                    <a href="/userProfileUpdate">Profile</a>
                   </h4>
                 </div>
                 <div className="dash">
                   <img src={Logout_logo} alt="Logout logo" />
                   <h4>
-                    <a href="/" onClick={handleLogout}>
+                    <a onClick={handleLogout}>
                       Logout
                     </a>
                   </h4>
