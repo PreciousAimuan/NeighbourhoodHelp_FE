@@ -42,7 +42,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={folder_logo} alt="History logo" />
                   <h4>
-                    <Link to="">History</Link>
+                    <a href="/agent-dashboard/history">History</a>
                   </h4>
                 </div>
               </div>
