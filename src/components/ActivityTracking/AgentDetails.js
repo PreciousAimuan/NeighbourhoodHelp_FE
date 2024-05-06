@@ -9,6 +9,9 @@ const AgentDetails = ({ agent }) => {
   const agentData = agent.message ? agent.message : agent;
   const userPrice = localStorage.getItem("price");
 
+  console.log(agentData.price)
+
+
   return (
     <div>
       <div className="trackingdiv">
@@ -39,9 +42,12 @@ const AgentDetails = ({ agent }) => {
           </div>
         </div>
         <div className="price">
-              {agentData === agent ? 
-                `Amount: ${userPrice}` :
-                `Amount: ${agentData.price}`}
+
+              
+                {userPrice === null ? 
+                `Amount: ${agentData.price}` :
+                `Amount: ${userPrice}`}
+
         </div>
         <div className="bright">
           <div className="tell-us-more-7">

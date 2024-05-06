@@ -18,6 +18,7 @@ import UserProfileUpdate from './UpdateProfile/UserProfileUpdate';
 import AgentSignUp from './Agent-SignUp/AgentSignUp';
 import History from '../pages/History/History';
 import Dashboardrecenterrands from '../pages/Recenterrands/Recenterrands';
+import AgentDashboard from '../pages/Dashboard/AgentDashboard';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/resetinstruction" element={<ResetInstruction />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/agent-dashboard" element={<Dashboardrecenterrands />} />
+          <Route path="/agent-dashboard" element={<AgentDashboard/>} />
           <Route path="/receive" element={<Receive />} />
           <Route path="/receive/2" element={<Receive2 />} />
           <Route path="/receive/3" element={<Receive3 />} />

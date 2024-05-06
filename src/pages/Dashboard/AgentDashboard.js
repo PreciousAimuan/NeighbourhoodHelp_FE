@@ -4,6 +4,10 @@ import Sidebar from "../../components/Dashboard/Dashboard_sidebar";
 import UserDetails from "../../components/ActivityTracking/UserDetails";
 import AgentNegotiatePrice from "../../components/NegotiatePrice/AgentNegotiatePrice";
 
+import Dashboardrecenterrands from '../../components/Dashboardrecenterrands/Dashboardrecenterrands'
+import "../Recenterrands/Recenterrands.css"
+
+
 const AgentDashboard = () => {
   const [errandCreated, setErrandCreated] = useState(false);
   const [responseData2, setResponseData2] = useState(null);
@@ -23,12 +27,20 @@ const AgentDashboard = () => {
     <div className="dashboard">
       <Sidebar />
       <div>
+
+        
+        <Dashboardrecenterrands/>
+        <div className="activity">
+
         {errandCreated && (
           <React.Fragment>
             <UserDetails />
             <AgentNegotiatePrice />
           </React.Fragment>
         )}
+
+        </div>
+
       </div>
     </div>
   );
