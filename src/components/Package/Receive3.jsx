@@ -80,7 +80,7 @@ const Receive3 = () => {
           </div>
           <div className="form-3">
             <div className="first-form-div">
-              <Input
+              {/* <Input
                 inputData={{
                   label: "Delivery Time",
                   placeholder: `Enter delivery time`,
@@ -88,7 +88,7 @@ const Receive3 = () => {
                   src:Clock,
                   name:"time"
                 }}
-              />
+              /> */}
 
 
               {/* <div className="first-input">

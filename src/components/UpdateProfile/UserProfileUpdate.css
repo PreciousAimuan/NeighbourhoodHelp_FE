@@ -302,7 +302,7 @@
   font-family: "DM Sans", sans-serif;
   width: 19%;
   margin-top: 25px;
-  margin-left: 35%;
+  margin-left: 37%;
   padding: 1.5%;
   border-radius: 12px;
   background-color: #000080;
@@ -378,4 +378,3 @@ display: flex;
 .updateform{
 width: 60%;
 }
-

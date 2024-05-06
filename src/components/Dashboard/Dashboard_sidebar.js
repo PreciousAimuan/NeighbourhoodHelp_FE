@@ -10,12 +10,12 @@ import profile_img from "../../assets/images/Ellipse.png";
 import notification_logo from "../../assets/images/notification.png";
 
 const Dashboard_sidebar = () => {
-    const navigate = useNavigate();
-    const handleLogout = () => {
-      // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
-      //localStorage.clear();
-      navigate("/login")
-    };
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Logic to handle logout, such as clearing local storage, redirecting to login page, etc.
+    // localStorage.clear();
+    navigate("/login");
+  };
   return (
     <div className="containerss">
       <div className="dashboard-sidebar">
@@ -61,9 +61,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Logout_logo} alt="Logout logo" />
                   <h4>
-                    <a onClick={handleLogout}>
-                      Logout
-                    </a>
+                    <a onClick={handleLogout}>Logout</a>
                   </h4>
                 </div>
               </div>

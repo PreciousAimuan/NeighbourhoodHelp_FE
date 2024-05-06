@@ -1,24 +1,27 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Dashboard/Dashboard_sidebar";
 import UserDetails from "../../components/ActivityTracking/UserDetails";
 import AgentNegotiatePrice from "../../components/NegotiatePrice/AgentNegotiatePrice";
 
-import Dashboardrecenterrands from '../../components/Dashboardrecenterrands/Dashboardrecenterrands'
-import "../Recenterrands/Recenterrands.css"
-
+import Dashboardrecenterrands from "../../components/Dashboardrecenterrands/Dashboardrecenterrands";
+import "../Recenterrands/Recenterrands.css";
+import Stats from "../../components/Stats/Stats";
 
 const AgentDashboard = () => {
   const [errandCreated, setErrandCreated] = useState(false);
   const [responseData2, setResponseData2] = useState(null);
 
   useEffect(() => {
-    const errandCreatedFromStorage = JSON.parse(localStorage.getItem('errandCreated'));
+    const errandCreatedFromStorage = JSON.parse(
+      localStorage.getItem("errandCreated")
+    );
     setErrandCreated(errandCreatedFromStorage);
 
     // Fetch response data if an errand has been created
     if (errandCreatedFromStorage) {
-      const responseDataFromStorage = JSON.parse(localStorage.getItem('responseData2'));
+      const responseDataFromStorage = JSON.parse(
+        localStorage.getItem("responseData2")
+      );
       setResponseData2(responseDataFromStorage);
     }
   }, []);
@@ -27,28 +30,21 @@ const AgentDashboard = () => {
     <div className="dashboard">
       <Sidebar />
       <div>
-
-        
-        <Dashboardrecenterrands/>
+        <Stats />
         <div className="activity">
-
-        {errandCreated && (
-          <React.Fragment>
-            <UserDetails />
-            <AgentNegotiatePrice />
-          </React.Fragment>
-        )}
-
+          {errandCreated && (
+            <React.Fragment>
+              <UserDetails />
+              <AgentNegotiatePrice />
+            </React.Fragment>
+          )}
         </div>
-
       </div>
     </div>
   );
-}
+};
 
 export default AgentDashboard;
-
-
 
 // import React, { useState, useEffect } from 'react';
 // import Sidebar from "../../components/Dashboard/Dashboard_sidebar";
@@ -93,7 +89,6 @@ export default AgentDashboard;
 
 // export default AgentDashboard;
 
-
 // // AgentDashboard.js
 // import React, { useState, useEffect } from 'react';
 // import Sidebar from "../../components/Dashboard/Dashboard_sidebar";
@@ -137,4 +132,3 @@ export default AgentDashboard;
 // }
 
 // export default AgentDashboard;
-

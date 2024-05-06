@@ -86,7 +86,7 @@
 
 .form1-container {
     height: 320px;
-    width: 60%;
+    width: 50%;
     margin-left: 25% ;
     margin-top: 25px;
     display: flex;
@@ -122,6 +122,7 @@
     height: 45px;
     border-radius: 10px;
     border: 1px solid #000080;
+    padding-left: 13px;
   }
   .lfn1{
     font-size: 13px;
@@ -130,6 +131,7 @@
     height: 45px;
     border-radius: 10px;
     border: 1px solid #000080;
+    padding-left: 13px;
   }
   .lln1{
     font-size: 13px;
@@ -161,6 +163,7 @@
     height: 45px;
     border-radius: 10px;
     border: 1px solid #0202ae;
+    padding-left: 13px;
   }
   .form1-col-2-2{
     height: 70px;
@@ -177,6 +180,7 @@
     height: 45px;
     border-radius: 10px;
     border: 1px solid #000080;
+    padding-left: 13px;
   }
   .title{
     padding-left: 28%;
@@ -188,6 +192,8 @@
   }
   .AgentForm{
     margin-top: 140px;
+  
+    
   }
   .btn{
   
@@ -200,6 +206,7 @@
     transition: 0.4s ease;
     font-family: "DM Sans", sans-serif;
     cursor: pointer;
+    margin-left: 2%;
 
     
   }

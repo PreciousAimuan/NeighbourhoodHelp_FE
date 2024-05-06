@@ -80,52 +80,54 @@ function UserProfileUpdate() {
             ...prevState,
             [name]: value
         }));
+        // Validate the input as it changes
+        const updatedErrors = validateForm({ ...userData, [name]: value });
+        setErrors(updatedErrors);
     };
 
     const validateForm = (userData) => {
         const errors = {};
     
-        // First Name validation
         if (!userData.firstName.trim()) {
             errors.firstName = "First Name is required.";
+        } else if (/[^A-Za-z ]/.test(userData.firstName)) {
+            errors.firstName = "Only alphabetic characters are allowed.";
         }
-        // Last Name validation
+    
         if (!userData.lastName.trim()) {
             errors.lastName = "Last Name is required.";
+        } else if (/[^A-Za-z ]/.test(userData.lastName)) {
+            errors.lastName = "Only alphabetic characters are allowed.";
         }
-        // Email validation
+    
         if (!userData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email)) {
             errors.email = "Please enter a valid email address.";
         }
     
-        // Phone Number validation
         if (!userData.phoneNumber.trim() || !/^\d+$/.test(userData.phoneNumber)) {
-            errors.phoneNumber = "Please enter a valid phone number (numbers only).";
+            errors.phoneNumber = "Only digits are allowed.";
+        } else if (userData.phoneNumber.length > 11) {
+            errors.phoneNumber = "Phone number should not exceed 11 digits.";
         }
     
-        // Postal Code validation
         if (!userData.postalCode.trim()) {
             errors.postalCode = "Postal Code is required.";
+        } else if (userData.postalCode.length > 6) {
+            errors.postalCode = "Postal code should not exceed 6 digits.";
         }
     
-        // Image validation
-        if (!userData.image) {
-            errors.image = "Image is required.";
-        }
-    
-        // Street validation
         if (!userData.street.trim()) {
             errors.street = "Street Address is required.";
         }
-        
-        // City validation
+    
         if (!userData.city.trim()) {
             errors.city = "City is required.";
         }
     
-        // State validation
         if (!userData.state.trim()) {
             errors.state = "State is required.";
+        }else if (/[^A-Za-z ]/.test(userData.state)) {
+            errors.state = "Only alphabetic characters are allowed.";
         }
     
         return errors;
@@ -219,16 +221,19 @@ function UserProfileUpdate() {
                 <form className="form-container" onSubmit={handleSubmit}>
                     <div className="form-row-1">
                         <div className="form-col-1-1">
-                            <label htmlFor="firstName" className='lfn roboto-regular'>First Name</label>
+                            <label type='text' htmlFor="firstName" className='lfn roboto-regular'>First Name</label>
                             <input
                                 className='fn'
                                 type="text"
+                                pattern='[A-Za-z ]+'
+                                title='Only alphabetic characters allowed'
                                 id="firstName"
                                 name="firstName"
                                 value={userData.firstName}
                                 onChange={handleChange}
+                                aria-describedby='firstNameError'
                             />
-                            {errors.firstName && <span className="error">{errors.firstName}</span>}
+                            <span id="firstNameError" className="error">{errors.firstName}</span>
                         </div>
                         <div className="form-col-1-2">
                             <label htmlFor="lastName" className='lln roboto-regular'>Last Name</label>
@@ -239,16 +244,16 @@ function UserProfileUpdate() {
                                 name="lastName"
                                 value={userData.lastName}
                                 onChange={handleChange}
+                                aria-describedby='emailError'
                             />
-                            <span className="error">{errors.lastName}</span>
+                            <span id='emailError' className="error">{errors.lastName}</span>
                         </div>
                     </div>
                     <div className="form-row-2">
                         <div className="form-col-2-1">
-                            <label htmlFor="email" className='eln roboto-regular'>Email Address</label>
+                            <label htmlFor="email" type='email' className='eln roboto-regular'>Email Address</label>
                             <input
                                 className='ein'
-                                type="email"
                                 id="email"
                                 name="email"
                                 value={userData.email}
@@ -260,7 +265,7 @@ function UserProfileUpdate() {
                             <label htmlFor="phoneNumber" className='pln roboto-regular'>Phone Number</label>
                             <input
                                 className='pin'
-                                type="tel"
+                                // type="number"
                                 id="phoneNumber"
                                 name="phoneNumber"
                                 value={userData.phoneNumber}
@@ -291,8 +296,9 @@ function UserProfileUpdate() {
                                 name="city"
                                 value={userData.city}
                                 onChange={handleChange}
+                                aria-describedby='cityError'
                             />
-                            <span className="error">{errors.city}</span>
+                            <span id="cityError" className="error">{errors.city}</span>
                         </div>
                     </div>
                     <div className="form-row-4">
@@ -305,20 +311,22 @@ function UserProfileUpdate() {
                                 name="street"
                                 value={userData.street}
                                 onChange={handleChange}
+                                aria-describedby='streetError'
                             />
-                            <span className="error">{errors.street}</span>
+                            <span id='streetError' className="error">{errors.street}</span>
                         </div>
                         <div className="form-col-4-2">
                             <label htmlFor="postalCode" className='pcln roboto-regular'>Postal Code</label>
                             <input
                                 className='pcin'
-                                type="text"
+                                type="number"
                                 id="postalCode"
                                 name="postalCode"
                                 value={userData.postalCode}
                                 onChange={handleChange}
+                                aria-describedby='postalCodeError'
                             />
-                            <span className="error">{errors.postalCode}</span>
+                            <span id='postalCodeError' className="error">{errors.postalCode}</span>
                         </div>
                     </div>
                     <button type="submit" className='btn'>Save Changes</button>
@@ -330,4 +338,3 @@ function UserProfileUpdate() {
 }
 
 export default UserProfileUpdate;
-
