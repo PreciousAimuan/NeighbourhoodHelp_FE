@@ -4,7 +4,7 @@ import Arrow from "../../assets/images/arrow-left.png";
 import Card from "../../assets/images/Card.png";
 import ReceiveLoader from "./ReceiveLoader";
 import { Link } from "react-router-dom";
-import { Input } from "./Receive";
+import Input from "./Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +12,8 @@ const Receive4 = () => {
   const [receiveData4, setReceiveData4] = useState({});
   const [errandCreated, setErrandCreated] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
     setReceiveData4({
       ...receiveData4,
@@ -42,36 +42,63 @@ const Receive4 = () => {
 
       //console.log(response.data.user.firstName)
 
-      localStorage.setItem('agent', JSON.stringify(response.data.user.errands.$values[0].agent.appUser));
-      localStorage.setItem('rating', JSON.stringify(response.data.user.errands.$values[0].agent.rating));
-      localStorage.setItem('errandId', JSON.stringify(response.data.user.errands.$values[0].id));
-      localStorage.setItem('userFirstname', JSON.stringify(response.data.user.firstName));
-      localStorage.setItem('userLastname', JSON.stringify(response.data.user.lastName));
-      localStorage.setItem('userPhoneNumber', JSON.stringify(response.data.user.phoneNumber));
-      localStorage.setItem('userEmail', JSON.stringify(response.data.user.email));
-      localStorage.setItem('price', JSON.stringify(response.data.user.errands.$values[0].price));
+      localStorage.setItem(
+        "agent",
+        JSON.stringify(response.data.user.errands.$values[0].agent.appUser)
+      );
+      localStorage.setItem(
+        "agentId",
+        JSON.stringify(response.data.user.errands.$values[0].agentId)
+      );
+      localStorage.setItem(
+        "rating",
+        JSON.stringify(response.data.user.errands.$values[0].agent.rating)
+      );
+      localStorage.setItem(
+        "errandId",
+        JSON.stringify(response.data.user.errands.$values[0].id)
+      );
+      localStorage.setItem(
+        "userFirstname",
+        JSON.stringify(response.data.user.firstName)
+      );
+      localStorage.setItem(
+        "userLastname",
+        JSON.stringify(response.data.user.lastName)
+      );
+      localStorage.setItem(
+        "userPhoneNumber",
+        JSON.stringify(response.data.user.phoneNumber)
+      );
+      localStorage.setItem(
+        "userEmail",
+        JSON.stringify(response.data.user.email)
+      );
+      localStorage.setItem(
+        "price",
+        JSON.stringify(response.data.user.errands.$values[0].price)
+      );
       setErrandCreated(true);
-      localStorage.setItem('errandCreated', 'true');
+      localStorage.setItem("errandCreated", "true");
       // console.log(response.data.user.errands.$values[0].agent.rating)
-      // console.log(response.data)
+      console.log(response.data);
       // console.log(response.data.user.errands.$values[0].agent.appUser.firstName)
       // localStorage.setItem('errands', JSON.stringify(response.data.errands));
-      console.log(response.data.user.lastName)
-      console.log(response.data.user.firstName)
-      console.log(response.data.user.phoneNumber)
-      console.log(response.data.user.email)
-      console.log(response.data.user.errands.$values[0].price)
-      console.log(response.data.user.errands.$values[0].id)
- 
-      navigate('/receive/5')
+      console.log(response.data.user.errands.$values[0].id);
+      console.log(response.data.user.lastName);
+      console.log(response.data.user.firstName);
+      console.log(response.data.user.phoneNumber);
+      console.log(response.data.user.email);
+      console.log(response.data.user.errands.$values[0].price);
+
+      navigate("/receive/5");
     } catch (error) {
-      alert("failure in sending errand")
+      alert("failure in sending errand");
       console.log(error);
     }
   };
 
   useEffect(() => {
-
     setReceiveData4({
       ...receiveData1,
       ...receiveData2,
@@ -80,6 +107,11 @@ const Receive4 = () => {
       userId: userId,
     });
   }, [receiveData1, receiveData2, receiveData3, receiveData4, userId]);
+
+  // localStorage.setItem(
+  //   "receiveData4",
+  //   JSON.stringify(response.data.user.phoneNumber)
+  // );
 
   return (
     <div>
@@ -131,7 +163,7 @@ const Receive4 = () => {
               </div>
             </div>
           </div>
-          <div className="form-2" >
+          <div className="form-2">
             <Input
               inputData={{
                 label: "Amount",
@@ -141,35 +173,21 @@ const Receive4 = () => {
                 name: "price",
               }}
             />
-
-            {/* <div className="first-input">
-                <span className="first-word">Amount</span>
-                <div className="frame">
-                  <div className="input-field-3">
-                    <div className="space">
-                      <input className="my-input"
-                        placeholder={`Enter Here`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-            
           </div>
         </div>
         <div className="step-2">
-              <button
-                className="prev-button"
-                onClick={() => {
-                  window.location.href = "/receive/3";
-                }}
-              >
-                Previous step
-              </button>
-              <button className="next-button" onClick={handleSubmit}>
-                Submit
-              </button>
-            </div>
+            <button
+              className="prev-button"
+              onClick={() => {
+                window.location.href = "/receive/3";
+              }}
+            >
+              Previous step
+            </button>
+            <button className="next-button" onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
       </div>
 
       <ReceiveLoader

@@ -2,28 +2,17 @@ import React, { useState, useEffect } from "react";
 import "../Package/Receive.css";
 import Arrow from "../../assets/images/arrow-left.png";
 import Location from "../../assets/images/location.png";
-import Flag from "../../assets/images/flag.png";
+//import Flag from "../../assets/images/flag.png";
 import ReceiveLoader from "./ReceiveLoader";
 import { Link } from "react-router-dom";
-import { Input } from "./Receive";
+import Input, {SelectInput } from "./Input";
 
 const Receive2 = () => {
-  const [selectedFlag, setSelectedFlag] = useState(Flag);
-
-  const handleSelectChange = (e) => {
-    const selectedValue = e.target.value;
-
-    if (selectedValue === "NGN") {
-      setSelectedFlag(Flag);
-    } else if (selectedValue === "GHN") {
-      setSelectedFlag(Arrow);
-    }
-  };
 
   const [receiveData2, setReceiveData2] = useState({})
 
-  const handleChange =(e) => {
-    const {name, value} = e.target
+  const handleChange =(event) => {
+    const {name, value} = event.target
 
     setReceiveData2({
       ...receiveData2, [name]:value
@@ -35,6 +24,15 @@ const Receive2 = () => {
   useEffect(() => {
     localStorage.setItem('receiveData2', JSON.stringify(receiveData2))
   }, [receiveData2])
+
+  //List of Nigerian states
+  const nigerianStates = [
+    "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River",
+    "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina",
+    "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau",
+    "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara", "FCT Abuja"
+  ];
+
 
   return (
     <div>
@@ -79,7 +77,7 @@ const Receive2 = () => {
             <img src={Location} alt="location" className="location" />
             <div className="actual-note-div">
               <div className="package-question">
-                Provide the Pickup Location and Time
+                Provide your Pickup Location
               </div>
               <div className="actual-note">
                 "Enter your pickup location to get started. Our agents are ready
@@ -88,98 +86,34 @@ const Receive2 = () => {
               </div>
             </div>
           </div>
-          <div className="form-3">
+          <form className="form-3">
             <div className="first-form-div">
-              {/* <div className="first-input">
-                <span className="first-word">Name of Sender</span>
-                <div className="frame">
-                  <div className="input-field">
-                    <div className="select">
-                      <input
-                        className="my-input-2"
-                        placeholder={`Enter Here`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <Input
+              <SelectInput
                 inputData={{
-                  label: "Name of Sender",
-                  placeholder: `Enter Here`,
-                  onChange: handleChange,
-                  name:"userid"
+                  label: "State",
+                  type: "text",
+                  options: nigerianStates,
+                  onChange1: handleChange,
+                  name: "state",
+                  placeholder: "Select a state from the list" 
                 }}
-              /> */}
-
+              />
               <Input
                 inputData={{
                   label: "Street Address",
-                  placeholder: `Enter Here`,
+                  type: "text",
+                  placeholder: `Enter street address here`,
                   onChange: handleChange,
                   name:"street"
                 }}
               />
-
-              <Input
-                inputData={{
-                  label: "State",
-                  placeholder: `Enter Here`,
-                  onChange: handleChange,
-                  name:"state"
-                }}
-              />
-              {/* <div className="second-input">
-                <span className="second-word">Street Address</span>
-                <div className="frame">
-                  <div className="input-field">
-                    <input className="my-input-3" placeholder={`Enter Here`} />
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="third-input">
-                <span className="third-word">State</span>
-                <div className="frame">
-                  <div className="input-field-2">
-                    <input className="my-input" placeholder={`Enter Here`} />
-                  </div>
-                </div>
-              </div>
-              <div className="third-input">
-                <span className="third-word">Postal Code</span>
-                <div className="frame">
-                  <div className="input-field-2">
-                    <input className="my-input" placeholder={`Enter Here`} />
-                  </div>
-                </div>
-              </div> */}
             </div>
             <div className="second-form-div">
-              {/* <div className="first-input">
-                <span className="first-word">Sender’s Phone</span>
-                <div className="frame">
-                  <div className="input-field">
-                    <img
-                      src={selectedFlag}
-                      alt="flag"
-                      onClick={() => setSelectedFlag(Flag)}
-                    />
-                    <select
-                      className="input-field-selector"
-                      style={{ cursor: "pointer" }}
-                      onChange={handleSelectChange}
-                    >
-                      <option value="NGN">NGN</option>
-                      <option value="GHN">GHN</option>
-                    </select>
-                    <input className="my-input" placeholder={`Enter Here`} />
-                  </div>
-                </div>
-              </div> */}
               <Input
                 inputData={{
                   label: "City/Town",
-                  placeholder: `Enter Here`,
+                  type: "text",
+                  placeholder: `Enter name of city or town here`,
                   onChange: handleChange,
                   name:"city"
                 }}
@@ -187,29 +121,14 @@ const Receive2 = () => {
               <Input
                 inputData={{
                   label: "Postal Code",
-                  placeholder: `Enter Here`,
+                  type: "text",
+                  placeholder: `Enter postal code here`,
                   onChange: handleChange,
                   name:"postalcode"
                 }}
               />
-              {/* <div className="second-input">
-                <span className="second-word">City/Town</span>
-                <div className="frame">
-                  <div className="input-field-2">
-                    <input className="my-input" placeholder={`Enter Here`} />
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="third-input">
-                <span className="third-word">Postal Code</span>
-                <div className="frame">
-                  <div className="input-field-2">
-                    <input className="my-input" placeholder={`Enter Here`} />
-                  </div>
-                </div>
-              </div> */}
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <div className="step-2">

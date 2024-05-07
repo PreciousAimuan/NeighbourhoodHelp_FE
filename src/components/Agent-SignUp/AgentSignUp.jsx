@@ -117,9 +117,10 @@ function AgentSignUp() {
             </label>
             <input
               className="fn1"
-              type="text"
+              type="number"
               id="NIN"
               name="NIN"
+              placeholder="Enter your NIN here"
               value={formData.NIN}
               onChange={handleChange}
               required
@@ -133,7 +134,7 @@ function AgentSignUp() {
             </label>
             <input
               className="ln1"
-              type="text"
+              type="date"
               id="DateOfBirth"
               placeholder="dd/mm/yyyy"
               name="DateOfBirth"
@@ -147,7 +148,7 @@ function AgentSignUp() {
         <div className="form1-row-2">
           <div className="form1-col-2-1">
             <label htmlFor="document" className="eln roboto-regular">
-              Document to Upload
+             Recent Utility bill
             </label>
             <input
               className="ein1"
@@ -168,6 +169,7 @@ function AgentSignUp() {
               type="text"
               id="postalCode"
               name="postalCode"
+              placeholder="Enter postal code here"
               value={formData.postalCode}
               onChange={handleChange}
               required

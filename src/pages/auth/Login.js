@@ -101,7 +101,7 @@ const Login = () => {
               to="/resetinstruction"
               style={{ textDecoration: "none", color: "#000080" }}
             >
-              Reset Password
+              <span className="reset-pwd">Reset Password</span>
             </Link>
           </div>
 

@@ -29,6 +29,7 @@
   font-size: 16px;
   color: var(--neutral-600, #6f6c90);
 }
+
 .notes {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -114,6 +115,7 @@
   width: 600px;
   height: 2px;
 }
+
 .location {
   width: 70px;
 }
@@ -161,9 +163,11 @@
   padding: 32px 50px 72px 50px;
   width: fit-content;
   height: 60%;
+  height: 60%;
   box-sizing: border-box;
 }
 .containers .form-2 {
+  display: flex;
   display: flex;
   height: 270px;
   width: 100%;
@@ -171,13 +175,14 @@
 .containers .form-3 {
   display: flex;
   justify-content: space-evenly;
+  justify-content: space-evenly;
   height: 270px;
   width: 100%;
 }
 
 .first-form-div,
 .second-form-div {
-  width: 50%;
+  width: 100%;
 }
 .first-input,
 .second-input,
@@ -187,6 +192,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  width: 100%;
   width: 100%;
 }
 .first-word,
@@ -216,6 +222,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 21px 10px 21px 15.4px;
+  width: 96%;
   width: 96%;
   height: 60px;
   box-sizing: border-box;
@@ -256,14 +263,16 @@
   width: 92.5%;
   outline: none;
   border: none;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   /* align-items: center; */
 }
 .my-input-2 {
-  width: 70%;
+  width: 97%;
   outline: none;
   border: none;
+  /* display: flex;
+  justify-content: center; */
 }
 .my-input-3 {
   width: 80%;
@@ -273,6 +282,7 @@
 .select {
   display: flex;
   justify-content: center;
+  width: 100%;
   width: 100%;
 }
 .step .next-button {
@@ -310,6 +320,8 @@
   box-sizing: border-box;
   color: #ffffff;
 }
+
 .space {
   width: 100%;
 }
+

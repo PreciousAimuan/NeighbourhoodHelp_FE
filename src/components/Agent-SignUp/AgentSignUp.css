@@ -131,7 +131,7 @@
     height: 45px;
     border-radius: 10px;
     border: 1px solid #000080;
-    padding-left: 13px;
+    padding: 0px 10px;
   }
   .lln1{
     font-size: 13px;
@@ -163,7 +163,7 @@
     height: 45px;
     border-radius: 10px;
     border: 1px solid #0202ae;
-    padding-left: 13px;
+    padding: 10px 15px;
   }
   .form1-col-2-2{
     height: 70px;

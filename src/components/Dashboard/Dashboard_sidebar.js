@@ -61,7 +61,7 @@ const Dashboard_sidebar = () => {
                 <div className="dash">
                   <img src={Logout_logo} alt="Logout logo" />
                   <h4>
-                    <a onClick={handleLogout}>Logout</a>
+                    <a onClick={handleLogout} id="logout-btn-cursor">Logout</a>
                   </h4>
                 </div>
               </div>

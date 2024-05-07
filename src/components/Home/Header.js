@@ -4,7 +4,7 @@ import { Link as Linker } from 'react-router-dom';
 const Header = () => {
  
   return (
-    <header className="header">
+    <header className="home-header">
         <div className="header-logo">
             <p>Neighbourhood Help</p>
         </div>

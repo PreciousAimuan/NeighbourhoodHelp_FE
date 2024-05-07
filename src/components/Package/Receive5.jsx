@@ -12,6 +12,7 @@ const Receive5 = () => {
   //const errands = JSON.parse(localStorage.getItem('errands'))
   const agent = JSON.parse(localStorage.getItem('agent'));
   console.log(agent)
+  console.log("i'm active")
   //console.log(agent)
   //console.log(errands.$values[0].id)
   // console.log(agent.errands.$values[0].agent.appUser.firstName)
@@ -57,12 +58,10 @@ const Receive5 = () => {
             <img src={Complete} alt="complete" />
             <div className="note">Package Sent Successfully!</div>
             <div className="more-note">
-              Your package has been scheduled for pickup at the <br />
-              designated time and date. Our trusted agent {agent.firstName + " " + agent.lastName} will be on their{" "}
+              Your package has been scheduled for pickup. Our trusted agent {agent.firstName + " " + agent.lastName} will be on their
               <br />
-              way to collect your package, ensuring a secure and timely <br />
-              delivery, you can contact our agent via {agent.phoneNumber} and {agent.email} who has a rating of {rating}. Thank you for choosing Neighbourhood Help for your{" "}
-              <br />
+              way to collect your package, contact our agent via <span style={{fontSize: "18px", fontWeight: "500"}}>{agent.phoneNumber}</span> and <span style={{fontSize: "18px", fontWeight: "500"}}>{agent.email}</span>. <br/>
+              Thank you for choosing Neighbourhood Help for your
               delivery needs!
             </div>
             <div className="homepage-btn">
@@ -75,7 +74,7 @@ const Receive5 = () => {
                     localStorage.removeItem('receiveData3');
                 }}
               >
-                Go to Homepage
+                Go to Dashboard
               </button>
             </div>
           </div>

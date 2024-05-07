@@ -1,4 +1,9 @@
-
+*{
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
 .loginContainer {
   display: flex;
   align-items: flex-start;
@@ -15,6 +20,7 @@
 
   .loginContainer img{
     /* height: inherit;  */
+    object-fit: contain;
     
     @media screen and (max-width: 600px) {
       width:100%
@@ -106,8 +112,16 @@
     margin: 3% 0%;
     width: 100%;
     margin-bottom: 2%; 
-    opacity: 60%; 
+    /* opacity: 60%;  */
    
+  }
+  .googleSearch img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .reset-pwd {
+    font-size: 13px;
   }
 
   .oR{

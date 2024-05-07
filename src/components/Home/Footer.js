@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-main-1">
         <div className="logo-footer">Neighbourhood Help</div>
-        <div className="copy">support@neighbourhoodhelp.com 2024. All rights reserved.</div>
+        <div className="home-copy">support@neighbourhoodhelp.com 2024. All rights reserved.</div>
       </div>
       <div className="footer-main-2">
         <a href="/">Terms</a>

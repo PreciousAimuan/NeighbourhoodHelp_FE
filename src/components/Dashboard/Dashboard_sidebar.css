@@ -45,6 +45,10 @@
     box-sizing: border-box;
 
 }
+
+#logout-btn-cursor {
+    cursor: pointer;
+} 
   
 .dashboard-logo{
     margin-bottom: 1.1rem;

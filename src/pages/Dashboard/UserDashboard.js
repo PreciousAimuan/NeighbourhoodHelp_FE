@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import "./UserDashboard.css";
 import Send from "../../assets/images/send.svg";
@@ -56,16 +55,16 @@ const UserDashboard = () => {
             <span className="send-apackage">Send a package</span>
           </div>
           <div className="receivePack">
-            <Link to={'/receive'}>
-              <div className="receiveFrame">
-                  <img
-                    className="undraw-drone-delivery-re-in-951"
-                    src={Receive}
-                    alt=""
-                  />
-              </div>
+          <Link to={'/receive'}>
+            <div className="receiveFrame">
+                <img
+                  className="undraw-drone-delivery-re-in-951"
+                  src={Receive}
+                  alt=""
+                />
+            </div>
             </Link>
-            <span className="recieve-apackage">Receive a package</span>
+            <span className="recieve-apackage">Recieve a package</span>
           </div>
         </div>
         {errandCreated && agentData && (

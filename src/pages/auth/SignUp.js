@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import CustomModal from '../../components/EmailVerificationModal/CustomModal'
 const UserRoleSelect = ({ value, onChange }) => (
-  <div>
-    <label htmlFor="roleSelect">Select Role:</label>
+  <form>
+    <label htmlFor="roleSelect">What are you registering as?</label> <br/>
     <select id="roleSelect" style={{width: "500px", padding: "15px", border: "1.5px solid #000080", borderRadius:" 8px", marginBottom:"3%"}} value={value} onChange={onChange}>
-      <option value="">Select Role</option>
+      <option value="">Select choice</option>
       <option value="user">User</option>
       <option value="agent">Agent</option>
     </select>
-  </div>
+  </form>
 );
 
 const SignUp = () => {
@@ -117,20 +117,20 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
 
   return (
     <div className="signupContainer">
-      <img src={formImage} alt="delivery-guy" />
+      <img src={formImage} alt="delivery-guy" className='sign-in-img'/>
       <div className="signupForm">
         <div className="signupHeader">
           <h1>Neighbourhood Help</h1>
           <h2>Create Your Account</h2>
-          <button className="googleSearch">
+          {/* <button className="googleSearch">
             <img src={googleIcon} alt="google-icon" />{" "}
             <span>Sign in with Google</span>
-          </button>
-          <div className="OR">
+          </button> */}
+          {/* <div className="OR">
             <img src={line} alt="line" className="lineImage" />
             <span>OR </span>
             <img src={line} alt="line" className="lineImage" />
-          </div>
+          </div> */}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="inputFields">
@@ -139,6 +139,7 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
               type="text"
               id="firstName"
               name="firstName"
+              placeholder='Enter your First Name'
               style={{ paddingLeft: "15px" }}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -150,6 +151,7 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
               type="text"
               id="lastName"
               name="lastName"
+              placeholder='Enter your Last Name'
               style={{ paddingLeft: "15px" }}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
@@ -164,6 +166,7 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
               type="email"
               id="email"
               name="email"
+              placeholder='Enter your email address'
               style={{ paddingLeft: "15px" }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -175,6 +178,7 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
               type="text"
               id="phone"
               name="phone"
+              placeholder='Enter your phone number'
               style={{ paddingLeft: "15px" }}
               value={phoneNumber}
               onChange={(e) => setPhone(e.target.value)}
@@ -186,6 +190,7 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
               type="password"
               id="password"
               name="password"
+              placeholder='Create a password'
               style={{ paddingLeft: "15px" }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -197,6 +202,7 @@ const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
               type="password"
               id="confirmPassword"
               name="confirmPassword"
+              placeholder='Confirm your password'
               style={{ paddingLeft: "15px" }}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
