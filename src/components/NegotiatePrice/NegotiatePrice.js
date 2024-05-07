@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './NegotiatePrice.css';
 
-const NegotiatePrice = () => {
+const NegotiatePrice = ({ onAccept }) => {
     const [amount, setAmount] = useState('');
-    const [responseData, setResponseData] = useState(null); // State to store response data
 
     const handleAmountChange = (event) => {
         setAmount(event.target.value);
@@ -13,30 +12,28 @@ const NegotiatePrice = () => {
 
     const handleButtonClick = async (action) => {
         try {
-            console.log(`Button clicked: ${action}`);
-        
             const errandId = JSON.parse(localStorage.getItem('errandId'));
-            console.log('Errand ID:', errandId);  
             
             let response;
             switch (action) {
                 case 'accept':
                     response = await axios.post(`https://localhost:7198/api/Price/user/accept?errandId=${errandId}`);
+                    onAccept();
                     break;
                 case 'decline':
                     response = await axios.post(`https://localhost:7198/api/Price/user/decline?errandId=${errandId}`);
+                    window.location.reload();
                     break;
                 case 'counter':
                     response = await axios.post('https://localhost:7198/api/Price/user/counter', { errandId, counterPrice: amount });
+                    window.location.reload();
                     break;
                 default:
                     break;
             }
-            console.log(JSON.stringify(response.data));
-            localStorage.setItem('agent', JSON.stringify(response.data)); // Set response data to local storage
-            //localStorage.setItem('price', JSON.stringify(response.data.message.price));
-            setResponseData(response.data); // Update state with response data
-            window.location.reload();
+            localStorage.setItem('agent', JSON.stringify(response.data));
+            localStorage.setItem('price', JSON.stringify(response.data.message.price));
+            
         } catch (error) {
             console.error('Error:', error);
         }
@@ -79,4 +76,4 @@ const NegotiatePrice = () => {
 };
 
 export default NegotiatePrice;
-
+    

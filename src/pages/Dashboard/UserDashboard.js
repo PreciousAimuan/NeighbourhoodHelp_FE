@@ -8,10 +8,13 @@ import AgentDetails from "../../components/ActivityTracking/AgentDetails";
 import Sidebar from "../../components/Dashboard/Dashboard_sidebar";
 import Navbar from "../../components/Dashboard/Navbar";
 import NegotiatePrice from "../../components/NegotiatePrice/NegotiatePrice";
+import ConfirmErrand from '../../components/ConfirmErrand/ConfirmErrand';
 
 const UserDashboard = () => {
   const [errandCreated, setErrandCreated] = useState(false);
   const [agentData, setAgentData] = useState(null);
+  const [isNegotiationAccepted, setIsNegotiationAccepted] = useState(false);
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     const errandCreatedFromStorage = JSON.parse(localStorage.getItem('errandCreated'));
@@ -20,9 +23,24 @@ const UserDashboard = () => {
     // Fetch agent data if an errand has been created
     if (errandCreatedFromStorage) {
       const agentDataFromStorage = JSON.parse(localStorage.getItem('agent'));
+      console.log(agentDataFromStorage)
       setAgentData(agentDataFromStorage);
     }
+
+    // Fetch status from local storage
+    const statusFromStorage = localStorage.getItem('status');
+    setStatus(statusFromStorage);
+    
   }, []);
+
+  const handleNegotiationAccepted = () => {
+    setIsNegotiationAccepted(true);
+  };
+
+  const handleConfirm = async () =>{
+    const statusFromStorage = localStorage.getItem('status');
+    setStatus(statusFromStorage);
+  }
 
   return (
     <div className="dashboard">
@@ -53,7 +71,16 @@ const UserDashboard = () => {
         {errandCreated && agentData && (
           <React.Fragment>
             <AgentDetails agent={agentData} />
-            <NegotiatePrice />
+            {!isNegotiationAccepted ? (
+              <NegotiatePrice onAccept={handleNegotiationAccepted} />
+            ) : (
+              <ConfirmErrand onConfirm={handleConfirm}/>
+            )}
+            {status && (
+              <div className="status-message">
+                <p>{status}</p>
+              </div>
+            )}
           </React.Fragment>
         )}
       </div>
@@ -63,3 +90,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+

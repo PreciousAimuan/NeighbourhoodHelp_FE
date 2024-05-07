@@ -29,7 +29,12 @@
 .counter {
   background-color: darkgoldenrod;
 }
-
+.complete{
+  background-color: rgba(39, 10, 227, 0.945);
+}
+.confirm{
+  background-color: rgba(39, 10, 227, 0.945);
+}
 .amount-container button:hover {
   background-color: #ccc;
 }

@@ -7,10 +7,8 @@ import "./AgentDetails.css";
 const AgentDetails = ({ agent }) => {
   // Check if agent data is in the initial format
   const agentData = agent.message ? agent.message : agent;
+  console.log(agentData)
   const userPrice = localStorage.getItem("price");
-
-  console.log(agentData.price)
-
 
   return (
     <div>
@@ -44,9 +42,10 @@ const AgentDetails = ({ agent }) => {
         <div className="price">
 
               
-                {userPrice === null ? 
+                {/* {agentData === agent.message ? 
                 `Amount: ${agentData.price}` :
-                `Amount: ${userPrice}`}
+                `Amount: ${userPrice}`} */}
+                Amount: {userPrice}
 
         </div>
         <div className="bright">

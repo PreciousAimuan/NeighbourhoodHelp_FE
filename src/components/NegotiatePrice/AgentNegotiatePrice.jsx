@@ -1,44 +1,60 @@
-// NegotiatePrice.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import './NegotiatePrice.css';
 
-const AgentNegotiatePrice = () => {
+const AgentNegotiatePrice = ({ onAccept, onDecline, onCounterOffer }) => {
     const [amount, setAmount] = useState('');
-    const [responseData2, setResponseData] = useState(null); // State to store response data
-    // const [currentAction, setCurrentAction] = useState(null); // State to store current action
 
     const handleAmountChange = (event) => {
         setAmount(event.target.value);
     };
 
-    const handleButtonClick = async (action) => {
+    const handleAccept = async () => {
         try {
-            console.log(`Button clicked: ${action}`);
-        
-            const errandId = JSON.parse(localStorage.getItem('errandId'));
-            console.log('Errand ID:', errandId);  
+            //const errandId = JSON.parse(localStorage.getItem('errandId'));
+            //const response = await axios.post(`https://localhost:7198/api/Price/agent/accept?errandId=${errandId}`);
+            // Set status to "Kindly accept the errand" in local storage
+            localStorage.setItem('status', 'Kindly accept the errand, do not forget to confirm on arrival!');
+            //console.log(JSON.stringify(response.data));
+            //localStorage.setItem('responseData2', JSON.stringify(response.data));
+            //localStorage.setItem('price', JSON.stringify(response.data.message.price));
+            // Call parent function
+            onAccept();
             
-            let response;
-            switch (action) {
-                case 'accept':
-                    response = await axios.post(`https://localhost:7198/api/Price/agent/accept?errandId=${errandId}`);
-                    break;
-                case 'decline':
-                    response = await axios.post(`https://localhost:7198/api/Price/agent/decline?errandId=${errandId}`);
-                    break;
-                case 'counter':
-                    response = await axios.post('https://localhost:7198/api/Price/agent/counter', { errandId, counterPrice: amount });
-                    break;
-                default:
-                    break;
-            }
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleDecline = async () => {
+        try {
+            const errandId = JSON.parse(localStorage.getItem('errandId'));
+            const response = await axios.post(`https://localhost:7198/api/Price/agent/decline?errandId=${errandId}`);
             console.log(JSON.stringify(response.data));
             localStorage.setItem('responseData2', JSON.stringify(response.data));
             localStorage.setItem('price', JSON.stringify(response.data.message.price));
-            setResponseData(response.data); // Set response data to state
-            // setCurrentAction(action); // Set current action
+            
+            // Call parent function
+            onDecline();
+            
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleCounterOffer = async () => {
+        try {
+            const errandId = JSON.parse(localStorage.getItem('errandId'));
+            const response = await axios.post('https://localhost:7198/api/Price/agent/counter', { errandId, counterPrice: amount });
+            console.log(JSON.stringify(response.data));
+            localStorage.setItem('responseData2', JSON.stringify(response.data));
+            localStorage.setItem('price', JSON.stringify(response.data.message.price));
             window.location.reload();
+            // Call parent function
+            onCounterOffer();
+            
 
         } catch (error) {
             console.error('Error:', error);
@@ -58,21 +74,21 @@ const AgentNegotiatePrice = () => {
                 <button
                     id="accept"
                     className="accept"
-                    onClick={() => handleButtonClick('accept')}
+                    onClick={handleAccept}
                 >
                     Accept
                 </button>
                 <button
                     id="decline"
                     className="decline"
-                    onClick={() => handleButtonClick('decline')}
+                    onClick={handleDecline}
                 >
                     Decline
                 </button>
                 <button
                     id="counter"
                     className="counter"
-                    onClick={() => handleButtonClick('counter')}
+                    onClick={handleCounterOffer}
                 >
                     Counter
                 </button>
@@ -82,89 +98,3 @@ const AgentNegotiatePrice = () => {
 };
 
 export default AgentNegotiatePrice;
-
-
-// // NegotiatePrice.js
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import './NegotiatePrice.css';
-
-// const NegotiatePrice = () => {
-//     const [amount, setAmount] = useState('');
-//     const [responseData2, setResponseData] = useState(null); // State to store response data
-//     // const [currentAction, setCurrentAction] = useState(null); // State to store current action
-
-//     const handleAmountChange = (event) => {
-//         setAmount(event.target.value);
-//     };
-
-//     const handleButtonClick = async (action) => {
-//         try {
-//             console.log(`Button clicked: ${action}`);
-        
-//             const errandId = JSON.parse(localStorage.getItem('errandId'));
-//             console.log('Errand ID:', errandId);  
-            
-//             let response;
-//             switch (action) {
-//                 case 'accept':
-//                     response = await axios.post(`https://localhost:7198/api/Price/agent/accept?errandId=${errandId}`);
-//                     break;
-//                 case 'decline':
-//                     response = await axios.post(`https://localhost:7198/api/Price/agent/decline?errandId=${errandId}`);
-//                     break;
-//                 case 'counter':
-//                     response = await axios.post('https://localhost:7198/api/Price/agent/counter', { errandId, counterPrice: amount });
-//                     break;
-//                 default:
-//                     break;
-//             }
-//             console.log(JSON.stringify(response.data));
-//             localStorage.setItem('responseData2', JSON.stringify(response.data));
-//             setResponseData(response.data); // Set response data to state
-//             // setCurrentAction(action); // Set current action
-//             window.location.reload();
-//         } catch (error) {
-//             console.error('Error:', error);
-//         }
-//     };
-
-//     return (
-//         <div className="bottom">
-//             <div className="amount-container">
-//                 <input
-//                     type="text"
-//                     id="amount"
-//                     placeholder="Enter Amount"
-//                     value={amount}
-//                     onChange={handleAmountChange}
-//                 />
-//                 <button
-//                     id="accept"
-//                     className="accept"
-//                     onClick={() => handleButtonClick('accept')}
-//                 >
-//                     Accept
-//                 </button>
-//                 <button
-//                     id="decline"
-//                     className="decline"
-//                     onClick={() => handleButtonClick('decline')}
-//                 >
-//                     Decline
-//                 </button>
-//                 <button
-//                     id="counter"
-//                     className="counter"
-//                     onClick={() => handleButtonClick('counter')}
-//                 >
-//                     Counter
-//                 </button>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default NegotiatePrice;
-
-
