@@ -13,6 +13,7 @@ const UserDashboard = () => {
   const [errandCreated, setErrandCreated] = useState(false);
   const [agentData, setAgentData] = useState(null);
   const [isNegotiationAccepted, setIsNegotiationAccepted] = useState(false);
+  const [showStatus, setShowStatus] = useState(true)
   const [status, setStatus] = useState('');
 
   useEffect(() => {
@@ -22,7 +23,6 @@ const UserDashboard = () => {
     // Fetch agent data if an errand has been created
     if (errandCreatedFromStorage) {
       const agentDataFromStorage = JSON.parse(localStorage.getItem('agent'));
-      console.log(agentDataFromStorage)
       setAgentData(agentDataFromStorage);
     }
 
@@ -34,11 +34,19 @@ const UserDashboard = () => {
 
   const handleNegotiationAccepted = () => {
     setIsNegotiationAccepted(true);
+    setShowStatus(true);
+    // Set the status in local storage
+    localStorage.setItem('status', 'The agent has completed the errand, kindly accept the errand to confirm the errand has been completed');
   };
 
-  const handleConfirm = async () =>{
-    const statusFromStorage = localStorage.getItem('status');
-    setStatus(statusFromStorage);
+  const handleDecline = () => {
+    setShowStatus(false);
+    // Reset the status in local storage
+    localStorage.setItem('status', "");
+  };
+
+  const handleConfirm = () => {
+    setShowStatus(false);
   }
 
   return (
@@ -55,27 +63,27 @@ const UserDashboard = () => {
             <span className="send-apackage">Send a package</span>
           </div>
           <div className="receivePack">
-          <Link to={'/receive'}>
-            <div className="receiveFrame">
-                <img
-                  className="undraw-drone-delivery-re-in-951"
-                  src={Receive}
-                  alt=""
-                />
-            </div>
+            <Link to={'/receive'}>
+              <div className="receiveFrame">
+                  <img
+                    className="undraw-drone-delivery-re-in-951"
+                    src={Receive}
+                    alt=""
+                  />
+              </div>
             </Link>
-            <span className="recieve-apackage">Recieve a package</span>
+            <span className="recieve-apackage">Receive a package</span>
           </div>
         </div>
         {errandCreated && agentData && (
           <React.Fragment>
             <AgentDetails agent={agentData} />
             {!isNegotiationAccepted ? (
-              <NegotiatePrice onAccept={handleNegotiationAccepted} />
+              <NegotiatePrice onAccept={handleNegotiationAccepted} onDecline={handleDecline} />
             ) : (
-              <ConfirmErrand onConfirm={handleConfirm}/>
+              <ConfirmErrand onConfirm={handleConfirm} />
             )}
-            {status && (
+            {status && showStatus && (
               <div className="status-message">
                 <p>{status}</p>
               </div>
@@ -89,4 +97,3 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
-

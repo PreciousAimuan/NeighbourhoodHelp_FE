@@ -17,7 +17,6 @@ import UserDashboard from '../pages/Dashboard/UserDashboard';
 import UserProfileUpdate from './UpdateProfile/UserProfileUpdate';
 import AgentSignUp from './Agent-SignUp/AgentSignUp';
 import History from '../pages/History/History';
-import Dashboardrecenterrands from '../pages/Recenterrands/Recenterrands';
 import AgentDashboard from '../pages/Dashboard/AgentDashboard';
 
 function App() {
@@ -40,7 +39,6 @@ function App() {
           <Route path="/userProfileUpdate" element={<UserProfileUpdate />} />
           <Route path="/agentSignup" element={<AgentSignUp />} />
           <Route path="/agent-dashboard/history" element={<History />} />
-          <Route path="/agent-dashboard/recenterrands" element={<Dashboardrecenterrands />} />
         </Routes>
       </Router>
     </>

@@ -10,7 +10,7 @@ const Navbar = ({userImage}) => {
         <img src={notification_logo} alt="notification-logo" className="notification-logo"/>
         
         
-        <img src={userImage} alt="profile-pic" className="profile-pic" />
+        {/* <img src={userImage} alt="profile-pic" className="profile-pic" /> */}
         
       </div> 
     </div>

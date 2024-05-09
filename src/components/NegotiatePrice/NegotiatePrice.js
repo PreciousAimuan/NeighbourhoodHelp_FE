@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './NegotiatePrice.css';
 
-const NegotiatePrice = ({ onAccept }) => {
+const NegotiatePrice = ({ onAccept, onDecline }) => {
     const [amount, setAmount] = useState('');
 
     const handleAmountChange = (event) => {
@@ -23,6 +23,7 @@ const NegotiatePrice = ({ onAccept }) => {
                 case 'decline':
                     response = await axios.post(`https://localhost:7198/api/Price/user/decline?errandId=${errandId}`);
                     window.location.reload();
+                    onDecline();
                     break;
                 case 'counter':
                     response = await axios.post('https://localhost:7198/api/Price/user/counter', { errandId, counterPrice: amount });
@@ -35,12 +36,12 @@ const NegotiatePrice = ({ onAccept }) => {
             localStorage.setItem('price', JSON.stringify(response.data.message.price));
             
         } catch (error) {
-            console.error('Error:', error);
+            window.alert(error.response.data);
         }
     };
 
     return (
-        <div className="bottom">
+        <div className="bottom-1">
             <div className="amount-container">
                 <input
                     type="text"

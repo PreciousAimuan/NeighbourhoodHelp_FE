@@ -27,7 +27,7 @@ const UserDetails = () => {
           </div>
           <span className="tracking-activity">Tracking Activity</span>
         </div>
-        <div className="view-progress">View Progress</div>
+        {/* <div className="view-progress">View Progress</div> */}
       </div>
       <div className="top-half">
         <div className="blue-left">

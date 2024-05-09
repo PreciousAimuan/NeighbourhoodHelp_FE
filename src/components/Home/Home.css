@@ -5,20 +5,19 @@
     src: url('../../../public/fonts/Harlow\ Solid\ Italic\ Italic.ttf') format('truetype');
   }
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
-}
+} */
 
-body {
+/* body {
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+  width: 100%;
   font-family: "Roboto", sans-serif;
-  /* background-color: red; */
-}
+} */
 
 /*--------------------  NAV BAR  --------------------*/
 .home-header {
@@ -291,7 +290,7 @@ footer{
     justify-content: space-between;
     align-items: center;
     padding: 75px 65px;
-    margin: auto;
+    margin: 0 auto 50px;
 }
 .footer-main-1{
     display: flex;

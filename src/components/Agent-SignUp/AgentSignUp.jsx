@@ -29,7 +29,7 @@ function AgentSignUp() {
       ...prevState,
       [name]: formattedValue,
     }));
-    validateField(name, formattedValue);
+    //validateField(name, formattedValue);
   };
 
   const handleFileChange = (e) => {

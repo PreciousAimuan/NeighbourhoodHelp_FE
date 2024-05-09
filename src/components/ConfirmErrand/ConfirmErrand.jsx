@@ -5,6 +5,7 @@ import '../NegotiatePrice/NegotiatePrice.css';
 
 const ConfirmErrand = ({ onConfirm }) => {
     const [isConfirmed, setIsConfirmed] = useState(false);
+    const [showStatus, setShowStatus] = useState(true)
     const [status, setStatus] = useState('');
 
     const handleButtonClick = async () => {
@@ -13,6 +14,7 @@ const ConfirmErrand = ({ onConfirm }) => {
             // const response = await axios.post(`https://localhost:7198/api/Errand/confirmErrand?errandId=${errandId}`);
             // console.log(JSON.stringify(response.data));
             localStorage.setItem('status', 'Errand completed successfully.');
+            setShowStatus(true);
             // Call parent function
             onConfirm();
             // Update state to indicate confirmation
@@ -38,11 +40,11 @@ const ConfirmErrand = ({ onConfirm }) => {
                     Confirm Errand
                 </button>
             ) : (
-                null
+                <p className='errand-completed'>Errand completed successfully!</p>
             )}
-            {status && (
+            {status && showStatus && (
               <div className="status-message">
-                <p>{status}</p>
+                <p className='errand-completed'>{status}</p>
               </div>
             )}
         </div>

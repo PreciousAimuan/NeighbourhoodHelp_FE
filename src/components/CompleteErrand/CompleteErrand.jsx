@@ -33,7 +33,7 @@ const CompleteErrand = ({ onComplete }) => {
                     Complete Errand
                 </button>
             ) : (
-                <p>Errand completed!</p>
+                <p className='errand-completed'>Errand completed!</p>
             )}
         </div>
     );

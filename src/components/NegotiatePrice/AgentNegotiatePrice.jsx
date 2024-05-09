@@ -11,14 +11,7 @@ const AgentNegotiatePrice = ({ onAccept, onDecline, onCounterOffer }) => {
 
     const handleAccept = async () => {
         try {
-            //const errandId = JSON.parse(localStorage.getItem('errandId'));
-            //const response = await axios.post(`https://localhost:7198/api/Price/agent/accept?errandId=${errandId}`);
-            // Set status to "Kindly accept the errand" in local storage
             localStorage.setItem('status', 'Kindly accept the errand, do not forget to confirm on arrival!');
-            //console.log(JSON.stringify(response.data));
-            //localStorage.setItem('responseData2', JSON.stringify(response.data));
-            //localStorage.setItem('price', JSON.stringify(response.data.message.price));
-            // Call parent function
             onAccept();
             
 
@@ -40,7 +33,7 @@ const AgentNegotiatePrice = ({ onAccept, onDecline, onCounterOffer }) => {
             
 
         } catch (error) {
-            console.error('Error:', error);
+            window.alert(error.response.data);
         }
     };
 
@@ -57,7 +50,7 @@ const AgentNegotiatePrice = ({ onAccept, onDecline, onCounterOffer }) => {
             
 
         } catch (error) {
-            console.error('Error:', error);
+            window.alert(error.response.data);
         }
     };
 

@@ -3,7 +3,7 @@ import Sidebar from "../../components/Dashboard/Dashboard_sidebar";
 import UserDetails from "../../components/ActivityTracking/UserDetails";
 import AgentNegotiatePrice from "../../components/NegotiatePrice/AgentNegotiatePrice";
 import CompleteErrand from '../../components/CompleteErrand/CompleteErrand';
-import Dashboardrecenterrands from '../../components/Dashboardrecenterrands/Dashboardrecenterrands'
+import Stats from '../../components/Stats/Stats'
 import "../Recenterrands/Recenterrands.css"
 
 const AgentDashboard = () => {
@@ -37,6 +37,11 @@ const AgentDashboard = () => {
     setIsNegotiatePriceVisible(false);
     setIsUserDetailsVisible(false);
     setIsCompleteErrandVisible(false);
+    
+    // Set flag in local storage indicating the agent has declined the errand
+    localStorage.setItem('agentDeclinedErrand', true);
+    // Reset the status in local storage
+    localStorage.setItem('status', 'errand declined, please decline');
   };
 
   const handleComplete = async () => {
@@ -48,7 +53,7 @@ const AgentDashboard = () => {
     <div className="dashboard">
       <Sidebar />
       <div>
-        <Dashboardrecenterrands/>
+        <Stats/>
         <div className="activity">
           {errandCreated && (
             <React.Fragment>

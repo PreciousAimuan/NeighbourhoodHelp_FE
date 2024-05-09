@@ -59,7 +59,7 @@ const Login = () => {
         <div className="loginHeader">
           <h1>Neighbourhood Help</h1>
           <h2>Welcome Back</h2>
-          <button className="googleSearch">
+          {/* <button className="googleSearch">
             <img src={googleIcon} alt="google-icon" />{" "}
             <span>Sign in with Google</span>
           </button>
@@ -67,7 +67,7 @@ const Login = () => {
             <img src={line} alt="line" className="lineImage" />
             <span>OR </span>
             <img src={line} alt="line" className="lineImage" />
-          </div>
+          </div> */}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="inputFields">
